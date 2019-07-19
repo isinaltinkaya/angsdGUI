@@ -1,6 +1,7 @@
-filetype = (('BAM', "BAM"),
-            ('CRAM', "CRAM"),
-            ('mpileup', "mpileup"),
-            ('VCF', "VCF"),
-            ('GLF', "GLF"),
-            ('beagle', "beagle"))
+fileTypes = (('BAM', 'BAM'),
+            ('CRAM', 'CRAM'),
+            ('mpileup', 'mpileup'),
+            ('VCF', 'VCF'),
+            ('BCF', 'BCF'),
+            ('GLF', 'GLF'),
+            ('beagle', 'beagle'))
