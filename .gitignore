@@ -7,3 +7,6 @@ __pycache__/
 # Ignore vim swap files
 *.swp
 *.swo
+
+# Ignore generated pipelines
+website_ANGSDgui/pipeline
