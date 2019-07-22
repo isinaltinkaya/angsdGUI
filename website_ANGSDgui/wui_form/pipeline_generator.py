@@ -8,11 +8,6 @@ import subprocess
 #              'GLF':'-glf',
 #              'beagle':'-beagle'}
 
-def touch_outFile(pipeline_name="ANGSD_pipeline"):
-    global outFile
-    outFile = "pipeline/" + pipeline_name + ".sh"
-    subprocess.call(['touch', outFile])
-
 def get_input(input_filename,input_filetype):
     fileTypeOpts= {'BAM':'-bam',
                   'CRAM':'-bam',
@@ -22,5 +17,18 @@ def get_input(input_filename,input_filetype):
                   'GLF':'-glf',
                   'beagle':'-beagle'}
     fileTypeOpt = fileTypeOpts.get(input_filetype)
-    global outFile
-    subprocess.call(["echo", "Hello","World!"])
+
+class WriteOutFile():
+    def __init__(self,outFile):
+        outFile = "pipelines/" + outFile + ".sh"
+        self.outFile = outFile
+
+    def create(self):
+        with open(self.outFile,'w+') as File:
+            File.close()
+
+    def write(self, line):
+        with open(self.outFile,'a+') as File:
+            File.write(line)
+            File.close()
+
