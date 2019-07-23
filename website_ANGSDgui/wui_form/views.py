@@ -1,18 +1,20 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
+from datetime import datetime
 from .forms import UI_Form
 from . import pipeline_generator as gen
-from datetime import datetime
 
 def get_input_details(request):
     
     if request.method == 'POST':
         form = UI_Form(request.POST)
         if form.is_valid():
+            # if softwarePath is given
             if form.cleaned_data['softwarePath']:
                 softwarePath = form.cleaned_data['softwarePath']
             else:
                 softwarePath = "angsd"
+            # if pipeline_name is given 
             if form.cleaned_data['pipeline_name']:
                 # pipeline_name_daymonthyear-hourminutesecond
                 pipeline_name = form.cleaned_data['pipeline_name'] + datetime.now().strftime('_%d%m%Y-%H%M%S')

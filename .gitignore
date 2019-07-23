@@ -9,4 +9,4 @@ __pycache__/
 *.swo
 
 # Ignore generated pipelines
-website_ANGSDgui/pipeline
+website_ANGSDgui/pipelines
