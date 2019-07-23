@@ -1,28 +1,42 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit
+from crispy_forms.layout import Layout, Submit, Row, Column
 from django.core import validators
 from django import forms
 from . import choices
 
 class UI_Form(forms.Form):
-    softwarePath = forms.CharField(required=False, label="Software path:") # output of which $SOFTWARE
+    # software path
+    softwarePath = forms.CharField(required=False, 
+            label="Software path", 
+            widget=forms.TextInput(attrs={'placeholder':'output of "which $SOFTWARE" command'}))
+    # pipeline name
     pipeline_name = forms.CharField(required=False,
-            label="Pipeline name:",
+            label="Pipeline name",
             validators=[
-                validators.RegexValidator(regex='^[a-zA-Z0-9]*$', message='Please enter a valid pipeline name.'),
-                ])
-    input_filename = forms.CharField(label="Input file name:")
-    input_filetype = forms.ChoiceField(choices=choices.fileTypes,label="Input file type:")
-
+                validators.RegexValidator(regex='^[a-zA-Z0-9]*$', message='Please enter a valid pipeline name.'),],
+            widget=forms.TextInput(attrs={'placeholder':'project1_pipeline'}))
+    # input file name
+    input_filename = forms.CharField(label="Input file name")
+    # input file type
+    input_filetype = forms.ChoiceField(choices=choices.fileTypes,label="Input file type")
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.helper = FormHelper
         self.helper.form_method = 'post' # use post method
+        #self.helper.form_action = 'download'
         self.helper.layout = Layout(
-                'softwarePath',
-                'pipeline_name',
-                'input_filename',
-                'input_filetype',
+                Row(
+                    Column('softwarePath', css_class='form-group col-md-6 mb-0'),
+                    Column('pipeline_name', css_class='form-group col-md-6 mb-0'),
+                    css_class='form-row'
+                    ),
+                Row(
+                    Column('input_filename', css_class='form-group col-md-6 mb-0'),
+                    Column('input_filetype', css_class='form-group col-md-6 mb-0'),
+                    css_class='form-row'
+                    ),
                 Submit('submit', 'Submit', css_class='btn-success')
         )
+
