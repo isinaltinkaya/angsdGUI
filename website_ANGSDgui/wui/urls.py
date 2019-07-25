@@ -8,5 +8,5 @@ from . import views
 
 urlpatterns = [
      url(r'^$', views.get_input_details, name='formpage'),
-     url(r'^download$', views.download, name='downloadpage'),  
+     url(r'^download$', views.downloadPage, name='downloadpage'),  
 ]

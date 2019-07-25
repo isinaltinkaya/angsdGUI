@@ -39,7 +39,11 @@ def get_input_details(request):
     return render(request, 'downloadpage.html', {'form': form})
     #return render(request, 'form.html', {'form': form})
 
-def download(request):
+def downloadPage(request): # this page comes after sending the form successfully, includes download button
+    return render(request, 'wui/templates/downloadPage') 
+
+
+def downloadItem(request):
     #file_name = get_input_details(request).input_filename()
     global input_filename
     file_name = input_filename
