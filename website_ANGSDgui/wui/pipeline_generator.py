@@ -1,13 +1,5 @@
 import subprocess
 
-#fileTypeOpts: {'BAM':'-bam',
-#              'CRAM':'-bam',
-#              'mpileup':'-pileup',
-#              'VCF':'-vcf-gl',
-#              'BCF':'-vcf-gl',
-#              'GLF':'-glf',
-#              'beagle':'-beagle'}
-
 def get_input(input_filename,input_filetype):
     fileTypeOpts= {'BAM':'-bam',
                   'CRAM':'-bam',

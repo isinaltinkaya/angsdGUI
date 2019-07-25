@@ -1,12 +1,14 @@
 from django.http import HttpResponse
+from django.core.mail import send_mail, BadHeaderError
 from django.shortcuts import render
 from datetime import datetime
 from .forms import UI_Form
 from . import pipeline_generator as gen
+from .models import Contact
 
 input_filename = ""
 
-def get_input_details(request):
+def formPage(request):
     
     if request.method == 'POST':
         form = UI_Form(request.POST)
@@ -36,11 +38,10 @@ def get_input_details(request):
     else:
         form = UI_Form()
     
-    return render(request, 'downloadpage.html', {'form': form})
-    #return render(request, 'form.html', {'form': form})
+    return render(request, 'form.html', {'form': form})
 
 def downloadPage(request): # this page comes after sending the form successfully, includes download button
-    return render(request, 'wui/templates/downloadPage') 
+    return render(request, 'downloadpage.html') 
 
 
 def downloadItem(request):
@@ -52,3 +53,29 @@ def downloadItem(request):
     response['Content-Disposition'] = 'attachment; filename=%s' %file_name
     response['X-Sendfile'] = path_to_file
     return response
+
+
+def get_document_url():
+    return "../pipelines/" + input_filename + ".txt"
+
+
+# contact us
+def contactPage(request):
+    return render(request, 'contact.html')
+
+def contact(request):
+    if request.method == 'POST':
+        email_r = request.POST.get('email')
+        subject_r = request.POST.get('subject')
+        message_r = request.POST.get('message')
+        c = Contact(email=email_r, subject=subject_r, message=message_r)
+        c.save()
+        send_mail(subject_r, message_r, email_r, ['isinaltinkaya@gmail.com'])
+        return render(request, 'thank.html')
+    else:
+        return render(request, 'contact.html')
+
+def about(request):
+    return render(request, 'about.html')
+
+

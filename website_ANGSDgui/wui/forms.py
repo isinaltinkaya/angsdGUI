@@ -1,5 +1,5 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
+from crispy_forms.layout import Layout, Submit, Row, Column, ButtonHolder, HTML
 from django.core import validators
 from django import forms
 from . import choices
@@ -25,7 +25,7 @@ class UI_Form(forms.Form):
 
         self.helper = FormHelper
         self.helper.form_method = 'post' # use post method
-        #self.helper.form_action = 'download'
+        #self.helper.form_action = 'download/'
         self.helper.layout = Layout(
                 Row(
                     Column('softwarePath', css_class='form-group col-md-6 mb-0'),
@@ -37,6 +37,8 @@ class UI_Form(forms.Form):
                     Column('input_filetype', css_class='form-group col-md-6 mb-0'),
                     css_class='form-row'
                     ),
-                Submit('submit', 'Submit', css_class='btn-success')
+                ButtonHolder(
+                    Submit('submit', 'Submit', css_class='btn-success'),
+                    ),
         )
 
