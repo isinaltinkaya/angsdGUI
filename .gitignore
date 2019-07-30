@@ -10,3 +10,6 @@ __pycache__/
 
 # Ignore generated pipelines
 website_ANGSDgui/pipelines
+
+# Ignore secret key
+website_ANGSDgui/website_ANGSDgui/secret_key
