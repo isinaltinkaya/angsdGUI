@@ -1,25 +1,71 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% block head %}
+
+        <link type="text/css" rel="stylesheet" href="StyleSheet.css"/>
+        <script src="script.js" type="text/javascript"></script>
+
+{% endblock %}
+
 {% block content %}
-<div class="col">
-    {% crispy form form.helper %}
-</div>
-<div class="col">
-    <style>
-pre code {
-    background-color: #272727;
-    color: #eee;
-    border: 1px solid #999;
-    display: block;
-    padding: 20px;
-}
-    </style>
-    Your pipeline:
-    <pre>
-        <code>
+<div class="row">
+    <div class="col">
+        <form method="post">
+            <input type="hidden" name="csrfmiddlewaretoken" value="IQHfZp260NXL2Jltw0rqtKZ4WPEAjsIIUCotq9LIpCSokZOAgsaCOphs6GfLsUYx">
+            <div class="row form-row">
+                <div class="formColumn form-group col-md-6 mb-0">
+                    <div id="div_id_softwarePath" class="form-group">
+                        <label for="id_softwarePath" class="col-form-label "> Software path </label>
+                        <div class="">
+                            <input type="text" name="softwarePath" class="textinput textInput form-control" id="id_softwarePath">
+                        </div>
+                    </div>
+                </div>
+                <div class="formColumn form-group col-md-6 mb-0">
+                    <div id="div_id_pipeline_name" class="form-group">
+                        <label for="id_pipeline_name" class="col-form-label "> Pipeline name </label>
+                        <div class="">
+                            <input type="text" name="pipeline_name" placeholder="project1_pipeline" class="textinput textInput form-control" id="id_pipeline_name"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-row">
+                <div class="formColumn form-group col-md-6 mb-0">
+                    <div id="div_id_input_filename" class="form-group">
+                        <label for="id_input_filename" class="col-form-label  requiredField"> Input file name <span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" name="input_filename" class="textinput textInput form-control" required id="id_input_filename">
+                        </div>
+                    </div>
+                </div>
+                <div class="formColumn form-group col-md-6 mb-0">
+                    <div id="div_id_input_filetype" class="form-group">
+                        <label for="id_input_filetype" class="col-form-label requiredField"> Input file type <span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <select name="input_filetype" class="select form-control" id="id_input_filetype">
+                                <option value="BAM">BAM</option>
+                                <option value="CRAM">CRAM</option>
+                                <option value="mpileup">mpileup</option>
+                                <option value="VCF">VCF</option>
+                                <option value="BCF">BCF</option>
+                                <option value="GLF">GLF</option>
+                                <option value="beagle">beagle</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="codeBlock" class="col">
+        <label for="codeBlock" class="col-form-label"> Your pipeline: </label>
+        <pre>
+          <code>
 #!/bin/bash
 # Pipeline created by ANGSDgui
-        </code>
-    </pre> 
+          </code>
+        </pre>
+    </div>
 </div>
 {% endblock %}
