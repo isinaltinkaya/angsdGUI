@@ -1,0 +1,22 @@
+@charset "UTF-8";
+body {
+    font-weight: 300;
+    height: 65vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+h1 {
+    font-weight: 300;
+}
+
+.col pre code {
+    background-color: #272727;
+    color: #eee;
+    border: 1px solid #999;
+    display: block;
+    padding: 20px;
+    font-family: Ubuntu Mono;
+}
