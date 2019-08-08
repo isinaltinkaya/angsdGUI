@@ -8,8 +8,8 @@ __pycache__/
 *.swp
 *.swo
 
-# Ignore generated pipelines
-website_ANGSDgui/pipelines
-
 # Ignore secret key
 website_ANGSDgui/website_ANGSDgui/secret_key
+
+# Ignore admin statics
+website_ANGSDgui/static/admin/
