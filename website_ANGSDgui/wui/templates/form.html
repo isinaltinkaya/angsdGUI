@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static from staticfiles %}
-{% block head %}
+{% block FormScripts %}
 
         <link type="text/css" rel="stylesheet" href="{% static "wui/css/FormPage.css" %}">
         <script type="text/javascript" src="{% static "wui/js/FormScript.js" %}"></script>
@@ -17,7 +17,7 @@
                     <div id="div_id_softwarePath" class="form-group">
                         <label for="softwarePath" class="col-form-label "> Software path </label>
                         <div class="">
-                            <input type="text" name="softwarePath" class="textinput textInput form-control" id="softwarePath" onkeyup="updateCode('softwarePath');">
+                            <input type="text" name="softwarePath" class="textinput textInput form-control" id="softwarePath" onkeyup="rewriteCode();">
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                     <div id="div_id_pipeline_name" class="form-group">
                         <label for="pipelineName" class="col-form-label "> Pipeline name </label>
                         <div class="">
-                            <input type="text" name="pipelineName" class="textinput textInput form-control" id="pipelineName"> </div>
+                            <input type="text" name="pipelineName" class="textinput textInput form-control" id="pipelineName" onkeyup="rewriteCode();"> </div>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                         <label for="infileName" class="col-form-label  requiredField"> Input file name <span class="asteriskField">*</span>
                         </label>
                         <div class="">
-                            <input type="text" name="infileName" class="textinput textInput form-control" required id="infileName">
+                            <input type="text" name="infileName" class="textinput textInput form-control" required id="infileName" onkeyup="rewriteCode();">
                         </div>
                     </div>
                 </div>
@@ -63,8 +63,6 @@
         <label for="codeBlock" class="col-form-label"> Your pipeline: </label>
         <pre>
           <code id="code">
-#!/bin/bash
-# Pipeline created by ANGSDgui
           </code>
         </pre>
     </div>
