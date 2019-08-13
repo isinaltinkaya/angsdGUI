@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     # local apps
     'wui',
     # third party
-    'crispy_forms',
+    #'crispy_forms',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
