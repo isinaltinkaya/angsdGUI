@@ -3,7 +3,9 @@
 {% block FormScripts %}
 
 <link type="text/css" rel="stylesheet" href="{% static "wui/css/FormPage.css" %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="{% static "wui/js/FormScript.js" %}"></script>
+<script type="text/javascript" src="{% static "wui/js/download.js" %}"></script>
 
 {% endblock %}
 
@@ -77,6 +79,7 @@
 <b id="code"></b>
             </pre>
         </div>
+        <button class="btn" style="width:100%" onclick="Download()"><i class="fa fa-download">Download pipeline</i></span></button>
     </div>
 </div>
 {% endblock %}
