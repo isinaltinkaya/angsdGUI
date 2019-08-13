@@ -31,15 +31,6 @@
             </div>
             <div class="row form-row">
                 <div class="formColumn form-group col-md-6 mb-0">
-                    <div id="div_id_input_filename" class="form-group">
-                        <label for="infileName" class="col-form-label  requiredField"> Input file name <span class="asteriskField">*</span>
-                        </label>
-                        <div class="">
-                            <input type="text" name="infileName" class="textinput textInput form-control" required id="infileName" onkeyup="rewriteCode();">
-                        </div>
-                    </div>
-                </div>
-                <div class="formColumn form-group col-md-6 mb-0">
                     <div id="div_id_input_filetype" class="form-group">
                         <label for="infileType" class="col-form-label requiredField"> Input file type <span class="asteriskField">*</span>
                         </label>
@@ -56,11 +47,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="formColumn form-group col-md-6 mb-0">
+                    <div id="div_id_input_filename" class="form-group">
+                        <label for="infileName" class="col-form-label  requiredField"> Input file name <span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" name="infileName" class="textinput textInput form-control" required id="infileName" onkeyup="rewriteCode();">
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
     <div id="codeBlock" class="col">
-        <label for="codeBlock" class="col-form-label"> Your pipeline: </label>
+        <label for="codeBlock" class="col-form-label"> Your pipeline </label>
+        <b id="yourPipelineName"></b>:
         <pre>
           <code id="code">
           </code>
