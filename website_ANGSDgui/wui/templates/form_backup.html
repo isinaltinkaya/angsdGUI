@@ -2,8 +2,8 @@
 {% load static from staticfiles %}
 {% block FormScripts %}
 
-<link type="text/css" rel="stylesheet" href="{% static "wui/css/FormPage.css" %}">
-<script type="text/javascript" src="{% static "wui/js/FormScript.js" %}"></script>
+        <link type="text/css" rel="stylesheet" href="{% static "wui/css/FormPage.css" %}">
+        <script type="text/javascript" src="{% static "wui/js/FormScript.js" %}"></script>
 
 {% endblock %}
 
@@ -59,24 +59,13 @@
             </div>
         </form>
     </div>
-    <div class="col ubuntu">
-        <div class="terminal shadow">
-            <div class="top">
-                <div class="btns">
-                    <span class="circle red"></span>
-                    <span class="circle yellow"></span>
-                    <span class="circle green"></span>
-                </div>
-                <div class="title">
-                    Pipeline
-                    <b id="yourPipelineName"></b>
-                    :
-                </div>
-            </div>
-            <pre class="body ubuntu">
-<b id="code"></b>
-            </pre>
-        </div>
+    <div id="codeBlock" class="col">
+        <label for="codeBlock" class="col-form-label"> Your pipeline </label>
+        <b id="yourPipelineName"></b>:
+        <pre>
+          <code id="code">
+          </code>
+        </pre>
     </div>
 </div>
 {% endblock %}
