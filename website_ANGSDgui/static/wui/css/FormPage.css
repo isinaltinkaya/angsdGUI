@@ -65,9 +65,9 @@ h1 {
 .terminal .yellow{ background: #F5C04F; border-color: #D6A13D; }
 .terminal .clear{clear: both;}
 .terminal .body {
-    background: black;
+    background: #495057;
     /*color: #7AFB4C; green*/
-    color: #eee ;
+    color: #fff ;
     padding: 8px;
     overflow: auto;
     text-align: left;
