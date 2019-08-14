@@ -79,9 +79,9 @@
 <b id="code"></b>
             </pre>
         </div>
-        <button class="DownloadButton" style="width:100%" onclick="Download()" id="downloadButton"><i class="fa fa-download">Download pipeline</i></span></button>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
-<button class="copy-button" data-clipboard-action="copy" data-clipboard-target="#code">Copy</button>
+        <button class="DownloadButton" onclick="Download()" id="downloadButton" data-toggle="tooltip" title="Download pipeline"><i class="fa fa-download"></i></button>
+        <button class="CopyButton" data-clipboard-action="copy" data-clipboard-target="#code" data-toggle="tooltip" title="Copy to clipboard"><i class="fa fa-clipboard" alt="Copied to clipboard"></i></button>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
 {% endblock %}

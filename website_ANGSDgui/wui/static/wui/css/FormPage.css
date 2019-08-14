@@ -1,5 +1,7 @@
 @charset "UTF-8";
-
+.col{
+column-width: 1000px;
+}
 @font-face {
     font-family: "UbuntuMonoR";
     src: url("../fonts/UbuntuMono-R.ttf");
@@ -55,7 +57,7 @@ body {
     /*background: #495057;
     color: #7AFB4C; green*/
     color: #fff ;
-    padding: 8px;
+    padding: 4px;
     overflow: auto;
     text-align: left;
 }
@@ -65,19 +67,32 @@ body {
 }
 .terminal .shadow { box-shadow: 0px 0px 10px rgba(0,0,0,.4)}
 
-
-
 .DownloadButton {
-      background-color: DodgerBlue;
-      border: none;
-      color: white;
-      padding: 12px 30px;
-      cursor: pointer;
-      font-size: 20px;
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
 }
 
 /* Darker background on mouse-over */
 .DownloadButton:hover {
-      background-color: RoyalBlue;
+    background-color: RoyalBlue;
 }
 
+.DownloadButton .shadow { box-shadow: 0px 0px 10px rgba(0,0,0,.4)}
+
+.CopyButton {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.CopyButton:hover {
+    background-color: RoyalBlue;
+}
