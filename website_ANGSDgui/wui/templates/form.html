@@ -79,7 +79,9 @@
 <b id="code"></b>
             </pre>
         </div>
-        <button class="btn" style="width:100%" onclick="Download()" id="downloadButton"><i class="fa fa-download">Download pipeline</i></span></button>
+        <button class="DownloadButton" style="width:100%" onclick="Download()" id="downloadButton"><i class="fa fa-download">Download pipeline</i></span></button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
+<button class="copy-button" data-clipboard-action="copy" data-clipboard-target="#code">Copy</button>
     </div>
 </div>
 {% endblock %}
