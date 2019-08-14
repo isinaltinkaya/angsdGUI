@@ -41,7 +41,10 @@
         {% endblock %}
 <script>
 $(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({html:true});
+});
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({html:true});   
 });
 </script>
     </body>

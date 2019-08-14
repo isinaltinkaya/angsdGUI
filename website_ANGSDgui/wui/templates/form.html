@@ -17,7 +17,10 @@
             <div class="row form-row">
                 <div class="formColumn form-group col-md-6 mb-0">
                     <div id="div_id_softwarePath" class="form-group">
-                        <label for="softwarePath" class="col-form-label "> Software path </label>
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="Software Path" data-content="Output of command 'which angsd'.">
+                            <i class="QuestionMark fa fa-question-circle"></i>
+                        </a>
+                        <label for="softwarePath" class="col-form-label "> Software path</label>
                         <div class="">
                             <input type="text" name="softwarePath" class="textinput textInput form-control" id="softwarePath" onkeyup="rewriteCode();">
                         </div>
@@ -25,6 +28,9 @@
                 </div>
                 <div class="formColumn form-group col-md-6 mb-0">
                     <div id="div_id_pipeline_name" class="form-group">
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="Pipeline Name" data-content="Desired name of your pipeline without '.sh' extension. If empty, pipeline will be called as 'ANGSDgui_pipeline'.">
+                            <i class="QuestionMark fa fa-question-circle"></i>
+                        </a>
                         <label for="pipelineName" class="col-form-label "> Pipeline name </label>
                         <div class="">
                             <input type="text" name="pipelineName" class="textinput textInput form-control" id="pipelineName" onkeyup="rewriteCode();"> </div>
@@ -34,6 +40,9 @@
             <div class="row form-row">
                 <div class="formColumn form-group col-md-6 mb-0">
                     <div id="div_id_input_filetype" class="form-group">
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="File Type of Input File" data-content="For more information about supported file types, please see <a href='http://www.popgen.dk/angsd/index.php/Input' target='_blank'>Input page on ANGSD wiki</a>.">
+                            <i class="QuestionMark fa fa-question-circle"></i>
+                        </a>
                         <label for="infileType" class="col-form-label requiredField"> Input file type <span class="asteriskField">*</span>
                         </label>
                         <div class="">
@@ -51,6 +60,9 @@
                 </div>
                 <div class="formColumn form-group col-md-6 mb-0">
                     <div id="div_id_input_filename" class="form-group">
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="File Name of Input File" data-content="Name of the file to be used in the analyses. Including extensions if any.">
+                            <i class="QuestionMark fa fa-question-circle"></i>
+                        </a>
                         <label for="infileName" class="col-form-label  requiredField"> Input file name <span class="asteriskField">*</span>
                         </label>
                         <div class="">

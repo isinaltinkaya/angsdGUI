@@ -53,9 +53,9 @@ body {
 .terminal .yellow{ background: #F5C04F; border-color: #D6A13D; }
 .terminal .clear{clear: both;}
 .terminal .body {
-    background: black;
-    /*background: #495057;
-    color: #7AFB4C; green*/
+    /*background: #3c3836;*/
+    background: #495057;
+    /*color: #7AFB4C; green*/
     color: #fff ;
     padding: 4px;
     overflow: auto;
@@ -95,4 +95,13 @@ body {
 /* Darker background on mouse-over */
 .CopyButton:hover {
     background-color: RoyalBlue;
+}
+
+.QuestionMark {
+    color: DodgerBlue;
+    cursor: pointer;
+}
+
+.QuestionMark:hover {
+    color: RoyalBlue;
 }
