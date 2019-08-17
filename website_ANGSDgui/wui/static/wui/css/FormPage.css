@@ -22,13 +22,13 @@ body {
 }
 
 .wuiForm{
-    margin-top: 12%;
+    margin-top: 8%;
     width: 100%;
 }
 
 .maincol-form {
     width: 50%;
-    margin-left: 10%;
+    margin-left: 5%;
 }
 
 .form-row {
@@ -137,15 +137,16 @@ body {
 }
 
 /*stepping form*/
-.stepwizard-step p {
+/*.stepwizard-step p {
     margin-top: 10px;
-}
+}*/
 .stepwizard-row {
     display: table-row;
 }
 
 .setup-content {
     height: 100%;
+    margin-top: 8%;
 }
 
 .stepwizard {
@@ -180,4 +181,8 @@ body {
     font-size: 12px;
     line-height: 1.428571429;
     border-radius: 15px;
+}
+
+.steps-col {
+    width: 100%;
 }

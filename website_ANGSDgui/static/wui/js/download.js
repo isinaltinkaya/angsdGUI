@@ -164,13 +164,15 @@
 }));
 
 // edited by isinaltinkaya:
+
+var OutField = document.getElementById("code1");
+var PipelineName = document.getElementById("pipelineName");
+
 var Download = function(){
-    var OutField = document.getElementById("code");
-    var PipelineName = document.getElementById("pipelineName");
     if(PipelineName.value){
         var OutFileName = PipelineName.value + ".sh";
     }else{
-        var OutFileName = "angsdgui_pipeline.sh";
+        var OutFileName = "ANGSDgui_pipeline.sh";
     }
     download(OutField.innerHTML, OutFileName, "text/plain");
 }

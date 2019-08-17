@@ -1,18 +1,9 @@
 {% extends 'base.html' %}
 {% load static from staticfiles %}
-{% block FormScripts %}
-
-<link type="text/css" rel="stylesheet" href="{% static "wui/css/FormPage.css" %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script type="text/javascript" src="{% static "wui/js/FormScript.js" %}"></script>
-<script type="text/javascript" src="{% static "wui/js/download.js" %}"></script>
-<script type="text/javascript" src="{% static "wui/js/clipboard.js" %}"></script>
-
-{% endblock %}
 
 {% block content %}
 <form id="wuiForm" class="wuiForm needs-validation" role="form" action="">
-    <div class="stepwizard col-md-offset-3">
+    <div class="stepwizard steps-col">
         <div class="stepwizard-row setup-panel">
             <div class="stepwizard-step">
                 <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
@@ -143,7 +134,7 @@
         </div>
     </div>
     <div class="row setup-content" id="step-3">
-        <div class="row form-row">
+        <div class="maincol-form">
             <button type="button" onclick="Download()" class="DownloadButton" id="DownloadButton" data-toggle="tooltip" title="Download pipeline"><i class="fa fa-download"></i></button>
             <button type="button" class="CopyButton" id="CopyButton" data-clipboard-action="copy" data-clipboard-target="#code3" data-toggle="tooltip" title="Copy to clipboard"><i class="fa fa-clipboard" alt="Copied to clipboard"></i></button>
         </div>
@@ -168,5 +159,15 @@
         </div>
     </div>
 </form>
+
+{% endblock %}
+
+{% block PageScripts %}
+
+<link type="text/css" rel="stylesheet" href="{% static "wui/css/FormPage.css" %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="{% static "wui/js/FormScript.js" %}"></script>
+<script type="text/javascript" src="{% static "wui/js/download.js" %}"></script>
+<script type="text/javascript" src="{% static "wui/js/clipboard.js" %}"></script>
 
 {% endblock %}

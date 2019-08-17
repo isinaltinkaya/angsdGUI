@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static from staticfiles %}
+
 
 {% block content %}
 <div class="row">
@@ -6,3 +8,10 @@
         <h5> <br> About ANGSDgui </h5>
 </div>
 {% endblock %}
+
+{% block PageScripts %}
+
+<link type="text/css" rel="stylesheet" href="{% static "wui/css/AboutPage.css" %}">
+
+{% endblock %}
+
