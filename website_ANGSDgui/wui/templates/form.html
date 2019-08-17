@@ -4,14 +4,14 @@
 
 <link type="text/css" rel="stylesheet" href="{% static "wui/css/FormPage.css" %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
 <script type="text/javascript" src="{% static "wui/js/FormScript.js" %}"></script>
 <script type="text/javascript" src="{% static "wui/js/download.js" %}"></script>
+<script type="text/javascript" src="{% static "wui/js/clipboard.js" %}"></script>
 
 {% endblock %}
 
 {% block content %}
-<form id="wuiForm" class="wuiForm" role="form" action="">
+<form id="wuiForm" class="wuiForm needs-validation" role="form" action="">
     <div class="stepwizard col-md-offset-3">
         <div class="stepwizard-row setup-panel">
             <div class="stepwizard-step">
@@ -31,32 +31,28 @@
     <div class="row setup-content" id="step-1">
         <div class="maincol-form">
             <div class="row form-row">
-                <div class="formColumn form-group">
+                <div class="formColumn">
                     <div id="div_id_pipeline_name" class="form-group">
                         <a href="#" data-toggle="popover" data-trigger="focus" title="Pipeline Name" data-content="Desired name of your pipeline without '.sh' extension. If empty, pipeline will be called as 'ANGSDgui_pipeline'.">
                             <i class="QuestionMark fa fa-question-circle"></i>
                         </a>
-                        <label for="pipelineName" class="col-form-label control-label"> Pipeline name </label>
-                        <div class="">
-                            <input type="text" name="pipelineName" class="textinput textInput form-control" id="pipelineName" onkeyup="rewriteCode();"> 
-                        </div>
+                        <label for="pipelineName" class="col-form-label form-control-label"> Pipeline name </label>
+                        <input type="text" name="pipelineName" class="textinput textInput form-control" id="pipelineName" onkeyup="rewriteCode();"> 
                     </div>
                 </div>
-                <div class="formColumn form-group">
+                <div class="formColumn">
                     <div id="div_id_analysis" class="form-group">
                         <a href="#" data-toggle="popover" data-trigger="focus" title="Analysis" data-content="Select one of the possible analyses to perform.">
                             <i class="QuestionMark fa fa-question-circle"></i>
                         </a>
-                        <label for="analysis" class="col-form-label requiredField control-label"> Analysis <span class="asteriskField">*</span>
+                        <label for="analysis" class="col-form-label requiredField form-control-label"> Analysis <span class="asteriskField">*</span>
                         </label>
-                        <div class="">
-                            <select name="analysis" class="select form-control" id="analysis" required="required">
-                                <option value=""> </option>
-                                <option value="1">SFS</option>
-                                <option value="2">Calculate thetas</option>
-                                <option value="3">Do neutrality test statistics</option>
-                            </select>
-                        </div>
+                        <select name="analysis" class="select form-control" id="analysis" required="required">
+                            <option value=""> </option>
+                            <option value="1">SFS</option>
+                            <option value="2">Calculate thetas</option>
+                            <option value="3">Do neutrality test statistics</option>
+                        </select>
                     </div>
                     <div>
                         <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
@@ -74,12 +70,12 @@
                     </div>
                     <div class="title">
                         Pipeline
-                        <b id="yourPipelineName"></b>
+                        <b id="yourPipelineName1"></b>
                         :
                     </div>
                 </div>
                 <pre class="CodeArea">
-<b id="code"></b>
+<b id="code1"></b>
                 </pre>
             </div>
         </div>
@@ -113,17 +109,17 @@
                         <a href="#" data-toggle="popover" data-trigger="focus" title="File Name of Input File" data-content="Name of the file to be used in the analysis. Including extensions if any.">
                             <i class="QuestionMark fa fa-question-circle"></i>
                         </a>
-                        <label for="infileName" class="col-form-label  requiredField"> Input file name <span class="asteriskField">*</span>
+                        <label for="infileName" class="col-form-label requiredField form-control-label"> Input file name <span class="asteriskField">*</span>
                         </label>
                         <div class="">
                             <input type="text" name="infileName" class="textinput textInput form-control" required="required" id="infileName" onkeyup="rewriteCode();">
                         </div>
                     </div>
+                    <div>
+                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
-                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
             </div>
         </div>
         <div class="maincol-terminal ubuntu">
@@ -136,39 +132,39 @@
                     </div>
                     <div class="title">
                         Pipeline
-                        <b id="yourPipelineName"></b>
+                        <b id="yourPipelineName2"></b>
                         :
                     </div>
                 </div>
                 <pre class="CodeArea">
-<b id="code"></b>
+<b id="code2"></b>
                 </pre>
             </div>
         </div>
     </div>
     <div class="row setup-content" id="step-3">
         <div class="row form-row">
-            <div class="maincol-terminal ubuntu">
-                <div class="terminal shadow">
-                    <div class="top">
-                        <div class="btns">
-                            <span class="circle red"></span>
-                            <span class="circle yellow"></span>
-                            <span class="circle green"></span>
-                        </div>
-                        <div class="title">
-                            Pipeline
-                            <b id="yourPipelineName"></b>
-                            :
-                        </div>
+            <button type="button" onclick="Download()" class="DownloadButton" id="DownloadButton" data-toggle="tooltip" title="Download pipeline"><i class="fa fa-download"></i></button>
+            <button type="button" class="CopyButton" id="CopyButton" data-clipboard-action="copy" data-clipboard-target="#code3" data-toggle="tooltip" title="Copy to clipboard"><i class="fa fa-clipboard" alt="Copied to clipboard"></i></button>
+        </div>
+        <div class="maincol-terminal ubuntu">
+            <div class="terminal shadow">
+                <div class="top">
+                    <div class="btns">
+                        <span class="circle red"></span>
+                        <span class="circle yellow"></span>
+                        <span class="circle green"></span>
                     </div>
-                    <pre class="CodeArea">
-<b id="code"></b>
-                    </pre>
+                    <div class="title">
+                        Pipeline
+                        <b id="yourPipelineName3"></b>
+                        :
+                    </div>
                 </div>
+                <pre class="CodeArea">
+<b id="code3"></b>
+                </pre>
             </div>
-            <button onclick="Download()" class="DownloadButton" id="DownloadButton" data-toggle="tooltip" title="Download pipeline"><i class="fa fa-download"></i></button>
-            <button class="CopyButton" id="CopyButton" data-clipboard-action="copy" data-clipboard-target="#code" data-toggle="tooltip" title="Copy to clipboard"><i class="fa fa-clipboard" alt="Copied to clipboard"></i></button>
         </div>
     </div>
 </form>

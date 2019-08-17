@@ -33,6 +33,7 @@ body {
 
 .form-row {
     margin-left: 10%;
+    height: 80%;
 }
 
 .maincol-terminal {
@@ -94,9 +95,11 @@ body {
     background-color: DodgerBlue;
     border: none;
     color: white;
-    padding: 12px 30px;
+    padding: 2px 15px;
     cursor: pointer;
     font-size: 20px;
+    width: 50px;
+    height: 40px;
 }
 
 /* Darker background on mouse-over */
@@ -110,15 +113,19 @@ body {
     background-color: DodgerBlue;
     border: none;
     color: white;
-    padding: 12px 30px;
+    padding: 2px 15px;
     cursor: pointer;
     font-size: 20px;
+    width: 50px;
+    height: 40px;
 }
 
 /* Darker background on mouse-over */
 .CopyButton:hover {
     background-color: RoyalBlue;
 }
+
+.CopyButton .shadow { box-shadow: 0px 0px 10px rgba(0,0,0,.4)}
 
 .QuestionMark {
     color: DodgerBlue;
@@ -136,6 +143,11 @@ body {
 .stepwizard-row {
     display: table-row;
 }
+
+.setup-content {
+    height: 100%;
+}
+
 .stepwizard {
     display: table;
     width: 50%;
