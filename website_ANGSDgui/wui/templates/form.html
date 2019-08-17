@@ -29,39 +29,37 @@
         </div>
     </div>
     <div class="row setup-content" id="step-1">
-        <div class="row form-row">
-            <div class="maincol-form">
-                <div class="row form-row">
-                    <div class="formColumn form-group">
-                        <div id="div_id_pipeline_name" class="form-group">
-                            <a href="#" data-toggle="popover" data-trigger="focus" title="Pipeline Name" data-content="Desired name of your pipeline without '.sh' extension. If empty, pipeline will be called as 'ANGSDgui_pipeline'.">
-                                <i class="QuestionMark fa fa-question-circle"></i>
-                            </a>
-                            <label for="pipelineName" class="col-form-label control-label"> Pipeline name </label>
-                            <div class="">
-                                <input type="text" name="pipelineName" class="textinput textInput form-control" id="pipelineName" onkeyup="rewriteCode();"> 
-                            </div>
+        <div class="maincol-form">
+            <div class="row form-row">
+                <div class="formColumn form-group">
+                    <div id="div_id_pipeline_name" class="form-group">
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="Pipeline Name" data-content="Desired name of your pipeline without '.sh' extension. If empty, pipeline will be called as 'ANGSDgui_pipeline'.">
+                            <i class="QuestionMark fa fa-question-circle"></i>
+                        </a>
+                        <label for="pipelineName" class="col-form-label control-label"> Pipeline name </label>
+                        <div class="">
+                            <input type="text" name="pipelineName" class="textinput textInput form-control" id="pipelineName" onkeyup="rewriteCode();"> 
                         </div>
                     </div>
-                    <div class="formColumn form-group">
-                        <div id="div_id_analysis" class="form-group">
-                            <a href="#" data-toggle="popover" data-trigger="focus" title="Analysis" data-content="Select one of the possible analyses to perform.">
-                                <i class="QuestionMark fa fa-question-circle"></i>
-                            </a>
-                            <label for="analysis" class="col-form-label requiredField control-label"> Analysis <span class="asteriskField">*</span>
-                            </label>
-                            <div class="">
-                                <select name="analysis" class="select form-control" id="analysis" required="required">
-                                    <option value=""> </option>
-                                    <option value="1">SFS</option>
-                                    <option value="2">Calculate thetas</option>
-                                    <option value="3">Do neutrality test statistics</option>
-                                </select>
-                            </div>
+                </div>
+                <div class="formColumn form-group">
+                    <div id="div_id_analysis" class="form-group">
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="Analysis" data-content="Select one of the possible analyses to perform.">
+                            <i class="QuestionMark fa fa-question-circle"></i>
+                        </a>
+                        <label for="analysis" class="col-form-label requiredField control-label"> Analysis <span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <select name="analysis" class="select form-control" id="analysis" required="required">
+                                <option value=""> </option>
+                                <option value="1">SFS</option>
+                                <option value="2">Calculate thetas</option>
+                                <option value="3">Do neutrality test statistics</option>
+                            </select>
                         </div>
-                        <div>
-                            <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
-                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
                     </div>
                 </div>
             </div>
@@ -87,66 +85,64 @@
         </div>
     </div>
     <div class="row setup-content" id="step-2">
-        <div class="row form-row">
-            <div class="maincol-form">
-                <div class="row form-row">
-                    <div class="formColumn form-group">
-                        <div id="div_id_input_filetype" class="form-group">
-                            <a href="#" data-toggle="popover" data-trigger="focus" title="File Type of Input File" data-content="For more information about supported file types, see <a href='http://www.popgen.dk/angsd/index.php/Input' target='_blank'>Input page on ANGSD wiki</a>.">
-                                <i class="QuestionMark fa fa-question-circle"></i>
-                            </a>
-                            <label for="infileType" class="col-form-label requiredField"> Input file type <span class="asteriskField">*</span>
-                            </label>
-                            <div class="">
-                                <select name="infileType" class="select form-control" id="infileType" required="required">
-                                    <option value=""> </option>
-                                    <option value="BAM">BAM</option>
-                                    <option value="CRAM">CRAM</option>
-                                    <option value="mpileup">mpileup</option>
-                                    <option value="VCF">VCF</option>
-                                    <option value="BCF">BCF</option>
-                                    <option value="GLF">GLF</option>
-                                    <option value="beagle">beagle</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="formColumn form-group">
-                        <div id="div_id_input_filename" class="form-group">
-                            <a href="#" data-toggle="popover" data-trigger="focus" title="File Name of Input File" data-content="Name of the file to be used in the analysis. Including extensions if any.">
-                                <i class="QuestionMark fa fa-question-circle"></i>
-                            </a>
-                            <label for="infileName" class="col-form-label  requiredField"> Input file name <span class="asteriskField">*</span>
-                            </label>
-                            <div class="">
-                                <input type="text" name="infileName" class="textinput textInput form-control" required="required" id="infileName" onkeyup="rewriteCode();">
-                            </div>
+        <div class="maincol-form">
+            <div class="row form-row">
+                <div class="formColumn form-group">
+                    <div id="div_id_input_filetype" class="form-group">
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="File Type of Input File" data-content="For more information about supported file types, see <a href='http://www.popgen.dk/angsd/index.php/Input' target='_blank'>Input page on ANGSD wiki</a>.">
+                            <i class="QuestionMark fa fa-question-circle"></i>
+                        </a>
+                        <label for="infileType" class="col-form-label requiredField"> Input file type <span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <select name="infileType" class="select form-control" id="infileType" required="required">
+                                <option value=""> </option>
+                                <option value="BAM">BAM</option>
+                                <option value="CRAM">CRAM</option>
+                                <option value="mpileup">mpileup</option>
+                                <option value="VCF">VCF</option>
+                                <option value="BCF">BCF</option>
+                                <option value="GLF">GLF</option>
+                                <option value="beagle">beagle</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                <div class="formColumn form-group">
+                    <div id="div_id_input_filename" class="form-group">
+                        <a href="#" data-toggle="popover" data-trigger="focus" title="File Name of Input File" data-content="Name of the file to be used in the analysis. Including extensions if any.">
+                            <i class="QuestionMark fa fa-question-circle"></i>
+                        </a>
+                        <label for="infileName" class="col-form-label  requiredField"> Input file name <span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" name="infileName" class="textinput textInput form-control" required="required" id="infileName" onkeyup="rewriteCode();">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="maincol-terminal ubuntu">
-                <div class="terminal shadow">
-                    <div class="top">
-                        <div class="btns">
-                            <span class="circle red"></span>
-                            <span class="circle yellow"></span>
-                            <span class="circle green"></span>
-                        </div>
-                        <div class="title">
-                            Pipeline
-                            <b id="yourPipelineName"></b>
-                            :
-                        </div>
+            <div>
+                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+            </div>
+        </div>
+        <div class="maincol-terminal ubuntu">
+            <div class="terminal shadow">
+                <div class="top">
+                    <div class="btns">
+                        <span class="circle red"></span>
+                        <span class="circle yellow"></span>
+                        <span class="circle green"></span>
                     </div>
-                    <pre class="CodeArea">
-<b id="code"></b>
-                    </pre>
+                    <div class="title">
+                        Pipeline
+                        <b id="yourPipelineName"></b>
+                        :
+                    </div>
                 </div>
+                <pre class="CodeArea">
+<b id="code"></b>
+                </pre>
             </div>
         </div>
     </div>
