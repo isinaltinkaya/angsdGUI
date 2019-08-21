@@ -18,73 +18,75 @@
                     <button href="#step-3" type="button" class="btn btn-default btn-circle shadow" disabled="disabled">3</button>
                     <p>Step 3</p>
                 </div>
+                <div class="stepwizard-step">
+                    <button href="#step-4" type="button" class="btn btn-default btn-circle shadow" disabled="disabled">4</button>
+                    <p>Step 4</p>
+                </div>
             </div>
         </div>
         <div class="row setup-content" id="step-1">
             <div class="row form-row">
                 <div class="formColumn">
-                    <div class="form-group">
-                        <a href="#" data-toggle="popover" data-trigger="focus" title="Pipeline Name" data-content="Desired name of your pipeline without '.sh' extension. If empty, pipeline will be called as 'ANGSDgui_pipeline'.">
-                            <i class="QuestionMark fa fa-question-circle"></i>
-                        </a>
-                        <label for="pipelineName" class="col-form-label form-control-label"> Pipeline name </label>
-                        <input type="text" name="pipelineName" class="textinput textInput form-control" id="pipelineName" onkeyup="rewriteCode();"> 
-                    </div>
+                    <a href="#" data-toggle="popover" data-trigger="focus" title="Pipeline Name" data-content="Desired name of your pipeline without '.sh' extension. If empty, pipeline will be called as 'ANGSDgui_pipeline'.">
+                        <i class="QuestionMark fa fa-question-circle"></i>
+                    </a>
+                    <label for="pipelineName" class="col-form-label form-control-label"> Pipeline name </label>
+                    <input type="text" name="pipelineName" class="textinput textInput form-control" id="pipelineName" oninput="rewriteCode();" onpaste="rewriteCode();"> 
                 </div>
                 <div class="formColumn">
-                    <div class="form-group">
-                        <a href="#" data-toggle="popover" data-trigger="focus" title="Analysis" data-content="Select one of the possible analyses to perform.">
-                            <i class="QuestionMark fa fa-question-circle"></i>
-                        </a>
-                        <label for="analysis" class="col-form-label requiredField form-control-label"> Analysis <span class="asteriskField">*</span>
-                        </label>
-                        <select name="analysis" class="select form-control" id="analysis" required="required" onChange="getAnalysis(this.value);">
-                            <option value=""> </option>
-                            <option value="1">SFS</option>
-                            <option value="2">Calculate thetas</option>
-                            <option value="3">Do neutrality test statistics</option>
-                        </select>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
-                    </div>
+                    <a href="#" data-toggle="popover" data-trigger="focus" title="Analysis" data-content="Select one of the possible analyses to perform.">
+                        <i class="QuestionMark fa fa-question-circle"></i>
+                    </a>
+                    <label for="analysis" class="col-form-label requiredField form-control-label"> Analysis <span class="asteriskField">*</span>
+                    </label>
+                    <select name="analysis" class="select form-control" id="analysis" required="required" onChange="getAnalysis(this.value);">
+                        <option value=""> </option>
+                        <option value="1">Site frequency spectrum</option>
+                        <option value="2">Population branch statistics</option>
+                        <option value="3">Calculate depth</option>
+                    </select>
                 </div>
+            </div>
+            <div class="row button-row">
+                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
             </div>
         </div>
         <div class="row setup-content" id="step-2">
             <div class="row form-row" id="step-2-div">
-                <div class="formColumn form-group">
-                    <div class="form-group">
-                        <a href="#" data-toggle="popover" data-trigger="focus" title="File Name of Input File" data-content="Name of the file to be used in the analysis. Including extensions if any.">
-                            <i class="QuestionMark fa fa-question-circle"></i>
-                        </a>
-                        <label for="infileName" class="col-form-label requiredField form-control-label"> Input file name <span class="asteriskField">*</span>
-                        </label>
-                        <div class="">
-                            <input type="text" name="infileName" class="textinput textInput form-control" required="required" id="infileName" onkeyup="rewriteCode();">
-                        </div>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
-                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                <div class="formColumn">
+                    <a href="#" data-toggle="popover" data-trigger="focus" title="File Name of Input File" data-content="Name of the file to be used in the analysis. Including extensions if any.">
+                        <i class="QuestionMark fa fa-question-circle"></i>
+                    </a>
+                    <label for="infileName" class="col-form-label requiredField form-control-label"> Input file name <span class="asteriskField">*</span>
+                    </label>
+                    <div class="">
+                        <input type="text" name="infileName" class="textinput textInput form-control" required="required" id="infileName" oninput="rewriteCode();">
                     </div>
                 </div>
             </div>
+            <div class="row button-row">
+                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+            </div>
         </div>
         <div class="row setup-content" id="step-3">
+            <div class="row form-row" id="step-3-div">
+            </div>
+            <div class="row button-row">
+                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+            </div>
+        </div>
+        <div class="row setup-content" id="step-4">
             <div class="row form-row">
-                <div class="formColumn form-group">
-                    <div class="form-group">
-                        <h> Your pipeline is ready!</h>
-                    </div>
-                    <div class="form-group">
-                        <button type="button" onclick="Download()" class="DownloadButton" id="DownloadButton" data-toggle="tooltip" title="Download pipeline"><i class="fa fa-download"></i></button>
-                        <button type="button" class="CopyButton" id="CopyButton" data-clipboard-action="copy" data-clipboard-target="#code" data-toggle="tooltip" title="Copy to clipboard"><i class="fa fa-clipboard" alt="Copied to clipboard"></i></button>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
-                    </div>
+                <div class="formColumn">
+                    <h> Your pipeline is ready!</h>
+                    <button type="button" onclick="Download()" class="DownloadButton" id="DownloadButton" data-toggle="tooltip" title="Download pipeline"><i class="fa fa-download"></i></button>
+                    <button type="button" class="CopyButton" id="CopyButton" data-clipboard-action="copy" data-clipboard-target="#code" data-toggle="tooltip" title="Copy to clipboard"><i class="fa fa-clipboard" alt="Copied to clipboard"></i></button>
                 </div>
+            </div>
+            <div>
+                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
             </div>
         </div>
     </form>

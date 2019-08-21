@@ -54,12 +54,23 @@ var getPipelineName = function(){
     }
 }
 
-var addToForm = function(DivId, ObjectName, ObjectPop, ObjectLabel){
+var addFormCol = function(DivId, ObjectName, ObjectPop, ObjectLabel){
+    var Div1 = document.createElement('div');
+    Div1.classList.add("formColumn");
+    var DocumentFragment = document.createDocumentFragment();
+    DocumentFragment.appendChild(Div1);
+    Div1.appendChild(ObjectPop);
+    Div1.appendChild(ObjectLabel);
+    Div1.appendChild(ObjectName);
+    DivId.appendChild(DocumentFragment);
+}
+
+var addFormRow = function(DivId, ObjectName, ObjectPop, ObjectLabel){
     var Div1 = document.createElement('div');
     var Div2 = document.createElement('div');
-    Div1.classList.add("formColumn", "form-group");
-    Div2.classList.add("form-group");
-    var DocumentFragment = document.createDocumentFragment();
+    Div1.classList.add("row", "form-row");
+    Div2.classList.add("formColumn");
+    var DocumentFragment = documenti.createDocumentFragment();
     DocumentFragment.appendChild(Div1);
     Div1.appendChild(Div2);
     Div2.appendChild(ObjectPop);
@@ -108,7 +119,7 @@ var getAnalysis = function(AnalysisNo){
         createLabel(InfileTypeLabel, InfileType.id, "Input file type");
         var InfileTypePop = document.createElement('a');
         createPopover(InfileTypePop, "title", "content");
-        addToForm(Step2Div, InfileType, InfileTypePop, InfileTypeLabel);
+        addFormCol(Step2Div, InfileType, InfileTypePop, InfileTypeLabel);
     }
 }
 
@@ -142,14 +153,14 @@ $(document).ready(function () {
         e.preventDefault();
         var $target = $($(this).attr('href')),
         $item = $(this);
-
-      if (!$item.hasClass('disabled')) {
-          navListItems.removeClass('btn-primary').addClass('btn-default');
-          $item.addClass('btn-primary');
-          allWells.hide();
-          $target.show();
-          $target.find('input:eq(0)').focus();
-      }
+        
+        if (!$item.hasClass('disabled')) {
+            navListItems.removeClass('btn-primary').addClass('btn-default');
+            $item.addClass('btn-primary');
+            allWells.hide();
+            $target.show();
+            $target.find('input:eq(0)').focus();
+        }
     });
   
     allPrevBtn.click(function(){
