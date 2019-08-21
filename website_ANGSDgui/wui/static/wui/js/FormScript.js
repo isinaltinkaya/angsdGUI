@@ -54,7 +54,7 @@ var getPipelineName = function(){
     }
 }
 
-var addFormCol = function(DivId, ObjectName, ObjectPop, ObjectLabel){
+var addFormCol = function(DivId, ObjectPop, ObjectLabel, ObjectName){
     var Div1 = document.createElement('div');
     Div1.classList.add("formColumn");
     var DocumentFragment = document.createDocumentFragment();
@@ -65,7 +65,7 @@ var addFormCol = function(DivId, ObjectName, ObjectPop, ObjectLabel){
     DivId.appendChild(DocumentFragment);
 }
 
-var addFormRow = function(DivId, ObjectName, ObjectPop, ObjectLabel){
+var addFormRow = function(DivId, ObjectPop, ObjectLabel, ObjectName){
     var Div1 = document.createElement('div');
     var Div2 = document.createElement('div');
     Div1.classList.add("row", "form-row");
@@ -84,15 +84,23 @@ var createPopover = function(Pop, Title, Content){
     Pop.href = "#";
     Pop.setAttribute("data-toggle", "popover");
     Pop.setAttribute("data-trigger", "focus");
-    Pop.setAttribute("title", Title);
+    Pop.setAttribute("title", "");
     Pop.setAttribute("data-content", Content);
+    Pop.setAttribute("data-original-title", Title);
+    var InfileTypePopI = document.createElement('i');
+    InfileTypePopI.classList.add("QuestionMark", "fa", "fa-question-circle");
+    Pop.appendChild(InfileTypePopI);
+}
+
+var enableNewPops = function(){
+    $('[data-toggle="popover"]').popover({html:true});   
 }
 
 // dynamic labelling
 var createLabel = function(Label, ForName, LabelText){
     Label.setAttribute("for", ForName);
-    Label.classList.add("col-form-label", "requiredField");
-    Label.innerHTML = LabelText;
+    Label.classList.add("col-form-label", "requiredField", "form-control-label");
+    Label.innerHTML = LabelText + '<span class="asteriskField">*</span>';
 }
 
 // dynamic select
@@ -103,7 +111,7 @@ var createSelect = function(Select, SelectId, OptionList){
     Select.required = true;
     Select.length = 0;
     for (var key in OptionList) {
-        Select.options[Select.options.length] = new Option(key, OptionList[key])
+        Select.options[Select.options.length] = new Option(key, OptionList[key]);
     }
 }
 
@@ -116,10 +124,11 @@ var getAnalysis = function(AnalysisNo){
         var InfileType = document.createElement('select');  
         createSelect(InfileType, "infileType", InfileTypes);
         var InfileTypeLabel = document.createElement('label');
-        createLabel(InfileTypeLabel, InfileType.id, "Input file type");
+        createLabel(InfileTypeLabel, InfileType.id, " Input file type ");
         var InfileTypePop = document.createElement('a');
         createPopover(InfileTypePop, "title", "content");
-        addFormCol(Step2Div, InfileType, InfileTypePop, InfileTypeLabel);
+        addFormCol(Step2Div, InfileTypePop, InfileTypeLabel, InfileType);
+        enableNewPops();
     }
 }
 
