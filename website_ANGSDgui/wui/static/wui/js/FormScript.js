@@ -71,6 +71,14 @@ var addFormRow = function(DivId, ObjectPop, ObjectLabel, ObjectName){
     DivId.appendChild(DocumentFragment);
 }
 
+var clearDiv = function(Div){
+    var child = Div.lastElementChild;
+    while (child){
+        Div.removeChild(child);
+        child = Div.lastElementChild;
+    }
+}
+
 // dynamic popover
 var createPopover = function(Pop, Title, Content){
     Pop.href = "#";
@@ -121,10 +129,10 @@ var createSelect = function(Select, SelectId, OptionList){
 
 // write step 2 according to analysis selection
 var getAnalysis = function(AnalysisNo){
-
+    clearDiv(Step2Div);
     // site frequency spectrum
     if (AnalysisNo == 1){
-       
+     
         // create input file name input
         var InfileName = document.createElement('input');
         createInput(InfileName, "infileName");
@@ -195,7 +203,7 @@ var getInfileName = function(){
 
 // stepping form
 // using jQuery
-$(document).ready(function () {
+$(document).ready(function(){
     var navListItems = $('div.setup-panel div button'),
         allWells = $('.setup-content'),
         allNextBtn = $('.nextBtn'),
@@ -203,14 +211,14 @@ $(document).ready(function () {
 
     allWells.hide();
 
-    navListItems.click(function (e) {
+    navListItems.click(function(e){
         e.preventDefault();
         var $target = $($(this).attr('href')),
         $item = $(this);
         
         if (!$item.hasClass('disabled')) {
             navListItems.removeClass('btn-primary').addClass('btn-default');
-            $item.addClass('btn-primary');
+            $item.addClass('btn-primary','disabled');
             allWells.hide();
             $target.show();
             $target.find('input:eq(0)').focus();
