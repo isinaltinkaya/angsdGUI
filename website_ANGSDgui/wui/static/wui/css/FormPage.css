@@ -37,6 +37,7 @@ body {
     grid-template-rows: 100px 380px;
     grid-gap: 0.4rem;
     width: 100%;
+    justify-content: center;
     /*display: -webkit-flex; /* Safari
     -webkit-flex-wrap: wrap; /* Safari 6.1+
     display: flex;
@@ -64,7 +65,8 @@ body {
 .button-row {
     margin-left: 5%;
     height: 10%;
-    width: 40%;
+    width: 100%;
+    justify-content: center;
 }
 
 .terminal {
@@ -214,4 +216,10 @@ body {
 
 .steps-col {
     width: 172%;
+}
+
+.divider{
+    width:5px;
+    height:auto;
+    display:inline-block;
 }

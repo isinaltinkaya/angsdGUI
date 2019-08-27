@@ -56,26 +56,29 @@
             </div>
             <div class="row button-row">
                 <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                <div class="divider"></div>
                 <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
             </div>
         </div>
         <div class="row setup-content" id="step-3">
-            <div class="row form-row" id="step-3-div">
+            <div class="form-grid" id="step-3-div">
             </div>
             <div class="row button-row">
                 <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                <div class="divider"></div>
                 <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
             </div>
         </div>
         <div class="row setup-content" id="step-4">
-            <div class="row form-row">
-                <div class="formColumn">
-                    <h> Your pipeline is ready!</h>
+            <div class="form-grid">
+                <div class="formItem"><h> Your pipeline is ready!</h><br>You can download your pipeline or copy it to your clipboard.<br></div>
+                <div class="formItem">
                     <button type="button" onclick="Download()" class="DownloadButton" id="DownloadButton" data-toggle="tooltip" title="Download pipeline"><i class="fa fa-download"></i></button>
+                    <div class="divider"></div>
                     <button type="button" class="CopyButton" id="CopyButton" data-clipboard-action="copy" data-clipboard-target="#code" data-toggle="tooltip" title="Copy to clipboard"><i class="fa fa-clipboard" alt="Copied to clipboard"></i></button>
                 </div>
             </div>
-            <div>
+            <div class="row button-row">
                 <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
             </div>
         </div>
