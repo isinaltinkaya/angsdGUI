@@ -27,19 +27,38 @@ body {
 
 .maincol-form {
     width: 50%;
-    margin-left: 5%;
-    margin-top: 10%;
+    margin-left: 8%;
+    margin-top: 8%;
+}
+
+.form-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 250px);
+    grid-template-rows: 100px 380px;
+    grid-gap: 0.4rem;
+    width: 100%;
+    /*display: -webkit-flex; /* Safari
+    -webkit-flex-wrap: wrap; /* Safari 6.1+
+    display: flex;
+    flex-wrap: wrap;*/
+}
+
+.formItem {
+    /*height: 20%;*/
+}
+
+.form-control {
+    width: 95% !important;
 }
 
 .maincol-terminal {
-    width: 40%;
-    margin-top: 17%;
+    width: 45%;
+    margin-top: 15%;
 }
 
 .form-row {
+    height: auto;
     margin-left: 5%;
-    height: 80%;
-    width: 140%;
 }
 
 .button-row {
@@ -194,5 +213,5 @@ body {
 }
 
 .steps-col {
-    width: 167%;
+    width: 172%;
 }

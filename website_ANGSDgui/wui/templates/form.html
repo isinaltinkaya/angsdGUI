@@ -25,15 +25,15 @@
             </div>
         </div>
         <div class="row setup-content" id="step-1">
-            <div class="row form-row">
-                <div class="formColumn">
+            <div class="form-grid">
+                <div class="formItem">
                     <a href="#" data-toggle="popover" data-trigger="focus" title="Pipeline Name" data-content="Desired name of your pipeline without '.sh' extension. If empty, pipeline will be called as 'ANGSDgui_pipeline'.">
                         <i class="QuestionMark fa fa-question-circle"></i>
                     </a>
                     <label for="pipelineName" class="col-form-label form-control-label"> Pipeline name </label>
-                    <input type="text" name="pipelineName" class="textinput textInput form-control" id="pipelineName" oninput="rewriteCode();" onpaste="rewriteCode();"> 
+                    <input type="text" name="pipelineName" class="form-control" id="pipelineName" oninput="rewriteCode();" onpaste="rewriteCode();"> 
                 </div>
-                <div class="formColumn">
+                <div class="formItem">
                     <a href="#" data-toggle="popover" data-trigger="focus" title="Analysis" data-content="Select one of the possible analyses to perform.">
                         <i class="QuestionMark fa fa-question-circle"></i>
                     </a>
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="row setup-content" id="step-2">
-            <div class="row form-row" id="step-2-div">
+            <div class="form-grid" id="step-2-div">
             </div>
             <div class="row button-row">
                 <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
