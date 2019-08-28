@@ -1,0 +1,35 @@
+## Site frequency spectrum ##
+
+[] I have .saf files
+
+    [+] 
+
+        # realSFS $outFolder/angsdput.saf.idx 
+
+        [] do SFS with chromosome or region => add -r $region
+            region can be in 22 or 22:1000000-150000000000 format
+
+        [] limit to a fixed number of sites => add -nSites $sites
+ 
+
+    [-] 
+
+do you have the gl files
+
+        Generate .saf files
+
+        # angsd -infileType $infileName -ref $ref -GL $gl -anc $anc -dosaf $doSaf -out $outFolder
+        
+        [] Do filtering => add filters: 
+            
+            -baq $baq 
+            -C $C 
+            -minMapQ $minMapQ 
+            -minQ $minQ 
+                
+                # realSFS $outFolder/angsdput.saf.idx 
+
+                [] do SFS with chromosome or region => add -r $region
+                   (region can be in 22 or 22:1000000-150000000000 format)
+
+                [] limit to a fixed number of sites => add -nSites $sites
