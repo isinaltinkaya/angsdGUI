@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="maincol-form">
-    <form id="wuiForm" class="wuiForm needs-validation" role="form" action="">
+    <form id="wuiForm" class="wuiForm" role="form" action="">
         <div class="stepwizard steps-col">
             <div class="stepwizard-row setup-panel">
                 <div class="stepwizard-step">
@@ -31,7 +31,7 @@
                         <i class="QuestionMark fa fa-question-circle"></i>
                     </a>
                     <label for="pipelineName" class="col-form-label form-control-label"> Pipeline name </label>
-                    <input type="text" name="pipelineName" class="form-control" id="pipelineName" oninput="rewriteCode();" onpaste="rewriteCode();"> 
+                    <input type="text" name="pipelineName" class="form-control" id="pipelineName" oninput="getPipelineName();" onpaste="getPipelineName();"> 
                 </div>
                 <div class="formItem">
                     <a href="#" data-toggle="popover" data-trigger="focus" title="Analysis" data-content="Select one of the possible analyses to perform.">
