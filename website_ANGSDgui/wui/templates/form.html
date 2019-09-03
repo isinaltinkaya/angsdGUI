@@ -18,16 +18,12 @@
                     <button href="#step-3" type="button" class="btn btn-default btn-circle shadow" disabled="disabled">3</button>
                     <p>Step 3</p>
                 </div>
-                <div class="stepwizard-step">
-                    <button href="#step-4" type="button" class="btn btn-default btn-circle shadow" disabled="disabled">4</button>
-                    <p>Step 4</p>
-                </div>
             </div>
         </div>
-        <div class="row setup-content" id="step-1">
+        <div class="row setup-content step-1" id="step-1">
             <div class="form-grid">
                 <div class="formItem">
-                    <a href="#" data-toggle="popover" data-trigger="focus" title="Pipeline Name" data-content="Desired name of your pipeline without '.sh' extension. If empty, pipeline will be called as 'ANGSDgui_pipeline'.">
+                    <a href="#" data-toggle="popover" data-trigger="focus" title="Pipeline Name" data-content="Desired name of your pipeline without '.sh' extension. Follow the rules for naming files in Linux and Unix. If empty, pipeline will be called as 'ANGSDgui_pipeline'.">
                         <i class="QuestionMark fa fa-question-circle"></i>
                     </a>
                     <label for="pipelineName" class="col-form-label form-control-label"> Pipeline name </label>
@@ -51,7 +47,7 @@
                 <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
             </div>
         </div>
-        <div class="row setup-content" id="step-2">
+        <div class="row setup-content step-2" id="step-2">
             <div class="form-grid" id="step-2-div">
             </div>
             <div class="row button-row">
@@ -60,16 +56,7 @@
                 <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
             </div>
         </div>
-        <div class="row setup-content" id="step-3">
-            <div class="form-grid" id="step-3-div">
-            </div>
-            <div class="row button-row">
-                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
-                <div class="divider"></div>
-                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
-            </div>
-        </div>
-        <div class="row setup-content" id="step-4">
+        <div class="row setup-content step-3" id="step-3">
             <div class="form-grid">
                 <div class="formItem"><h> Your pipeline is ready!</h><br>You can download your pipeline or copy it to your clipboard.<br></div>
                 <div class="formItem">

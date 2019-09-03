@@ -108,9 +108,13 @@ var createSelect = function(Select, SelectId, OptionList, Required){
 }
 
 // add item to a specific div
-var addFormItem = function(DivId, ObjectPop, ObjectLabel, ObjectName){
+var addFormItem = function(DivId, ObjectPop, ObjectLabel, ObjectName, Generation){
     var Div1 = document.createElement('div');
     Div1.classList.add("formItem");
+    if (Generation){
+        // add generation
+        Div1.classList.add(Generation);
+    }
     var DocumentFragment = document.createDocumentFragment();
     DocumentFragment.appendChild(Div1);
     Div1.appendChild(ObjectPop);
@@ -140,9 +144,12 @@ var callSoftware = function(Software){
         createPopover(
                 realSFSPop, 
                 "Path of realSFS Software", 
-                "Path of realSFS in your file system. For Linux, it can be found with command <code>which realSFS</code>. <br /> e.g. <code>/usr/bin/angsd/misc/realSFS</code>"
+                `Path of realSFS in your file system. If empty, realSFS will be called as <code>realSFS</code>.<br />
+                For Linux, it can be found with command <code>which realSFS</code>.<br />
+                e.g. <code>/usr/bin/angsd/misc/realSFS</code><br />
+                `
         );
-        addFormItem(Step2Div, realSFSPop, realSFSLabel, realSFS);
+        addFormItem(Step2Div, realSFSPop, realSFSLabel, realSFS, "gen2");
 
         // enable new popovers
         enableNewPops();
@@ -151,6 +158,14 @@ var callSoftware = function(Software){
         
 
     }
+}
+
+// clear generated form items
+var clearGen = function(Generation){
+
+    var finder = '.' + Generation;
+    $(finder).remove();
+
 }
 
 
@@ -168,6 +183,7 @@ var getInfileType = function(){
                 dorealSFS();
                 return getSoftwarePath("realSFS");
             }
+            clearGen("gen2");
             return InfileType.value;
         }
         return "";
@@ -210,11 +226,11 @@ var dorealSFS = function(){
             realSFS_RegionPop, 
             "Region", 
             `Do SFS with a chromosome or region.<br /> 
-            e.g. <code>22</code> for Chromosome 22 or <br />
-            <code>22:1000-20000</code> for region 1000-20000 in Chromosome 22.
+            e.g. <code>22</code> for Chromosome 22<br />
+            e.g. <code>22:1000-20000</code> for region 1000-20000 in Chromosome 22.
             `
     );
-    addFormItem(Step2Div, realSFS_RegionPop, realSFS_RegionLabel, realSFS_Region);
+    addFormItem(Step2Div, realSFS_RegionPop, realSFS_RegionLabel, realSFS_Region, "gen2");
     FunctionList.push(getValue.bind(null, " -r ", "realSFS_Region"));
 
     // enable new popovers
@@ -274,7 +290,9 @@ var getAnalysis = function(AnalysisNo){
         createPopover(
                 InfileTypePop, 
                 "Input File Type", 
-                "File type of input file."
+                `File type of input file. <br />
+                For more information, see <a href="http://www.popgen.dk/angsd/index.php/Input" target="_blank">angsd wiki input page</a>.
+                `
         );
         addFormItem(Step2Div, InfileTypePop, InfileTypeLabel, InfileType);
         FunctionList.push(getInfileType);
@@ -288,7 +306,8 @@ var getAnalysis = function(AnalysisNo){
         createPopover(
                 InfileNamePop, 
                 "Input File Name", 
-                "Name of the input file to be used in the analysis. Including extensions if any.<br /> e.g. <code>myfile.bamlist</code>"
+                `Name of the input file to be used in the analysis. Including extensions if any.<br /> 
+                e.g. <code>myfile.bamlist</code>`
         );
         addFormItem(Step2Div, InfileNamePop, InfileNameLabel, InfileName);
         FunctionList.push(getValue.bind(null, "", "infileName"));
@@ -364,7 +383,7 @@ $(document).ready(function(){
             prevStepWizard = $('div.setup-panel div button[href="#' + curStepBtn + '"]').parent().prev().children("button");
 
             prevStepWizard.removeAttr('disabled').trigger('click');
-  });
+    });
 
     allNextBtn.click(function(){
         var curStep = $(this).closest(".setup-content"),
