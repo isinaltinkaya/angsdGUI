@@ -165,7 +165,7 @@
 
 // edited by isinaltinkaya:
 
-var OutField = document.getElementById("code1");
+var OutField = document.getElementById("code");
 var PipelineName = document.getElementById("pipelineName");
 
 var Download = function(){

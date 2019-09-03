@@ -19,14 +19,14 @@ var Step3Div = document.getElementById("step-3-div");
 // define selection attributes
 var InfileTypes = {
     " ":"",
-    "bam/bamlist":" -bam",
-    "cram":" -bam",
-    "mpileup":" -pileup",
-    "vcf":" -vcf-gl",
-    "bcf":" -vcf-gl",
-    "glf.gz":" -glf",
-    "glf10_text":" -glf10_text",
-    "beagle":" -beagle",
+    "bam/bamlist":"-bam",
+    "cram":"-bam",
+    "mpileup":"-pileup",
+    "vcf":"-vcf-gl",
+    "bcf":"-vcf-gl",
+    "glf.gz":"-glf",
+    "glf10_text":"-glf10_text",
+    "beagle":"-beagle",
 };
 
 // define functions for step1 inputs
@@ -123,6 +123,20 @@ var addFormItem = function(DivId, ObjectPop, ObjectLabel, ObjectName, Generation
     DivId.appendChild(DocumentFragment);
 }
 
+var getSoftwarePath = function(Software){
+
+    var SoftwarePath = document.getElementById(Software);
+
+    if(SoftwarePath){
+
+        if(SoftwarePath.value){
+            return SoftwarePath.value;
+        }
+        return Software;
+    }
+    return Software;
+}
+
 // call required software
 var callSoftware = function(Software){
     
@@ -139,13 +153,13 @@ var callSoftware = function(Software){
         var realSFS = document.createElement('input');
         createInput(realSFS, "realSFS");
         var realSFSLabel = document.createElement('label');
-        createLabel(realSFSLabel, realSFS.id, " Path of realSFS ");
+        createLabel(realSFSLabel, realSFS.id, " Path to realSFS ");
         var realSFSPop = document.createElement('a');
         createPopover(
                 realSFSPop, 
-                "Path of realSFS Software", 
-                `Path of realSFS in your file system. If empty, realSFS will be called as <code>realSFS</code>.<br />
-                For Linux, it can be found with command <code>which realSFS</code>.<br />
+                "Path to realSFS Software", 
+                `Path to realSFS in your file system. If empty, realSFS will be called as <code>realSFS</code>.<br />
+                For Linux systems, it can be found with command <code>which realSFS</code>.<br />
                 e.g. <code>/usr/bin/angsd/misc/realSFS</code><br />
                 `
         );
@@ -156,6 +170,28 @@ var callSoftware = function(Software){
 
     } else if (Software == "angsd"){
         
+        var angsd = document.getElementById("angsd");
+        if (realSFS){
+            return getSoftwarePath(Software);
+        }
+
+        var angsd = document.createElement('input');
+        createInput(angsd, "angsd");
+        var angsdLabel = document.createElement('label');
+        createLabel(angsdLabel, angsd.id, " Path to angsd ");
+        var angsdPop = document.createElement('a');
+        createPopover(
+                angsdPop,
+                "Path to angsd Software", 
+                `Path to angsd in your file system. If empty, angsd will be called as <code>angsd</code>.<br />
+                For Linux systems, it can be found with command <code>which angsd</code>.<br />
+                e.g. <code>/usr/bin/angsd/angsd</code><br />
+                `
+        );
+        addFormItem(Step2Div, angsdPop, angsdLabel, angsd, "gen2");
+
+        // enable new popovers
+        enableNewPops();
 
     }
 }
@@ -178,13 +214,18 @@ var getInfileType = function(){
     if (InfileType){
 
         if (InfileType.value){
+            var type = InfileType.value;
             // special cases require functions
-            if (InfileType.value == "saf"){
+            if (type == "saf"){
                 dorealSFS();
                 return getSoftwarePath("realSFS");
             }
+            if (type == "-bam"){
+                clearGen("gen2");
+                return getSoftwarePath("angsd") + " " + InfileType.value;
+            }
             clearGen("gen2");
-            return InfileType.value;
+            return "";
         }
         return "";
     }
@@ -192,27 +233,12 @@ var getInfileType = function(){
 }
 
 
-var getSoftwarePath = function(Software){
-
-    var SoftwarePath = document.getElementById(Software);
-
-    if(SoftwarePath){
-
-        if(SoftwarePath.value){
-            return SoftwarePath.value + " ";
-        }
-        return Software + " ";
-    }
-    return Software + " ";
-}
-
-
 var dorealSFS = function(){
     
     callSoftware("realSFS");
 
-    var realSFS_Region = document.getElementById("realSFS_Region");
-    if (realSFS_Region){
+    // check region input
+    if (document.getElementById("realSFS_Region")){
         return; 
     }
 
@@ -224,22 +250,47 @@ var dorealSFS = function(){
     var realSFS_RegionPop = document.createElement('a');
     createPopover(
             realSFS_RegionPop, 
-            "Region", 
+            "Define a region", 
             `Do SFS with a chromosome or region.<br /> 
-            e.g. <code>22</code> for Chromosome 22<br />
-            e.g. <code>22:1000-20000</code> for region 1000-20000 in Chromosome 22.
+            e.g. <code>chr22</code> for Chromosome 22<br />
+            e.g. <code>chr22:100000-2000000</code> for region 100000-2000000 in Chromosome 22.
             `
     );
     addFormItem(Step2Div, realSFS_RegionPop, realSFS_RegionLabel, realSFS_Region, "gen2");
-    FunctionList.push(getValue.bind(null, " -r ", "realSFS_Region"));
+    FunctionList.push(getValue.bind(null, "-r", "realSFS_Region"));
+
+
+    // check nSites input
+    if (document.getElementById("realSFS_nSites")){
+        return; 
+    }
+
+    // create number of sites input
+    var realSFS_nSites = document.createElement('input');
+    createInput(realSFS_nSites, "realSFS_nSites");
+    var realSFS_nSitesLabel = document.createElement('label');
+    createLabel(realSFS_nSitesLabel, realSFS_nSites.id, " Number of sites ");
+    var realSFS_nSitesPop = document.createElement('a');
+    createPopover(
+            realSFS_nSitesPop, 
+            "Number of sites", 
+            `Limit SFS to a fixed number of sites. <br /> 
+             <code>-nSites</code> is used for choosing a max number of sites that should be used for the optimization. Using more sites will give you more reliable estimates. If you dont specify anything it will try to load all sites into memory. 
+            `
+    );
+    addFormItem(Step2Div, realSFS_nSitesPop, realSFS_nSitesLabel, realSFS_nSites, "gen2");
+    FunctionList.push(getValue.bind(null, "-nSites", "realSFS_nSites"));
+
 
     // enable new popovers
     enableNewPops();
 
+}
 
+var getFileTypeOptions = function(FileType){
 
-    // create number of sites input
-
+    callSoftware("angsd");
+    
 
 }
 
@@ -249,7 +300,10 @@ var getValue = function(param, id){
 
     if(Element){
         if(Element.value){
-            return param + Element.value;
+            if(param){
+                return " " + param + " " + Element.value;
+            }
+            return " " + Element.value;
         }
         return "";
     }
