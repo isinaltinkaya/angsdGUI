@@ -11,7 +11,6 @@ var YourPipelineName = document.getElementById("yourPipelineName");
 var Analysis = document.getElementById("analysis");  
 
 // step 2
-var Step2Div = document.getElementById("step-2-div");
 
 // step 3
 var Step3Div = document.getElementById("step-3-div");
@@ -41,7 +40,8 @@ var getPipelineName = function(){
 }
 
 // clear all childs of div
-var clearDiv = function(Div){
+var clearDiv = function(DivId){
+    var Div = document.getElementById(DivId);
     var child = Div.lastElementChild;
     while (child){
         Div.removeChild(child);
@@ -109,6 +109,7 @@ var createSelect = function(Select, SelectId, OptionList, Required){
 
 // add item to a specific div
 var addFormItem = function(DivId, ObjectPop, ObjectLabel, ObjectName, Generation){
+    var Div = document.getElementById(DivId);
     var Div1 = document.createElement('div');
     Div1.classList.add("formItem");
     if (Generation){
@@ -120,7 +121,7 @@ var addFormItem = function(DivId, ObjectPop, ObjectLabel, ObjectName, Generation
     Div1.appendChild(ObjectPop);
     Div1.appendChild(ObjectLabel);
     Div1.appendChild(ObjectName);
-    DivId.appendChild(DocumentFragment);
+    Div.appendChild(DocumentFragment);
 }
 
 var getSoftwarePath = function(Software){
@@ -163,7 +164,7 @@ var callSoftware = function(Software){
                 e.g. <code>/usr/bin/angsd/misc/realSFS</code><br />
                 `
         );
-        addFormItem(Step2Div, realSFSPop, realSFSLabel, realSFS, "gen2");
+        addFormItem("step-2-div", realSFSPop, realSFSLabel, realSFS, "gen2");
 
         // enable new popovers
         enableNewPops();
@@ -188,7 +189,7 @@ var callSoftware = function(Software){
                 e.g. <code>/usr/bin/angsd/angsd</code><br />
                 `
         );
-        addFormItem(Step2Div, angsdPop, angsdLabel, angsd, "gen2");
+        addFormItem("step-2-div", angsdPop, angsdLabel, angsd, "gen2");
 
         // enable new popovers
         enableNewPops();
@@ -256,7 +257,7 @@ var dorealSFS = function(){
             e.g. <code>chr22:100000-2000000</code> for region 100000-2000000 in Chromosome 22.
             `
     );
-    addFormItem(Step2Div, realSFS_RegionPop, realSFS_RegionLabel, realSFS_Region, "gen2");
+    addFormItem("step-2-div", realSFS_RegionPop, realSFS_RegionLabel, realSFS_Region, "gen2");
     FunctionList.push(getValue.bind(null, "-r", "realSFS_Region"));
 
 
@@ -278,7 +279,7 @@ var dorealSFS = function(){
              <code>-nSites</code> is used for choosing a max number of sites that should be used for the optimization. Using more sites will give you more reliable estimates. If you dont specify anything it will try to load all sites into memory. 
             `
     );
-    addFormItem(Step2Div, realSFS_nSitesPop, realSFS_nSitesLabel, realSFS_nSites, "gen2");
+    addFormItem("step-2-div", realSFS_nSitesPop, realSFS_nSitesLabel, realSFS_nSites, "gen2");
     FunctionList.push(getValue.bind(null, "-nSites", "realSFS_nSites"));
 
 
@@ -319,7 +320,9 @@ var FunctionList = [];
 var getAnalysis = function(AnalysisNo){
 
     // clear step 2 if previously created
-    clearDiv(Step2Div);
+    if (document.getElementById("step-2-div")){
+        clearDiv("step-2-div");
+    }
 
     // clear list of functions
     FunctionList = [];
@@ -331,6 +334,8 @@ var getAnalysis = function(AnalysisNo){
 
     // site frequency spectrum
     }else if (AnalysisNo == 1){
+
+        addStep("step-2");
 
         // add analysis specific input files
         InfileTypes["saf.idx"] = "saf"    
@@ -348,7 +353,7 @@ var getAnalysis = function(AnalysisNo){
                 For more information, see <a href="http://www.popgen.dk/angsd/index.php/Input" target="_blank">angsd wiki input page</a>.
                 `
         );
-        addFormItem(Step2Div, InfileTypePop, InfileTypeLabel, InfileType);
+        addFormItem("step-2-div", InfileTypePop, InfileTypeLabel, InfileType);
         FunctionList.push(getInfileType);
      
         // create input file name input
@@ -360,10 +365,11 @@ var getAnalysis = function(AnalysisNo){
         createPopover(
                 InfileNamePop, 
                 "Input File Name", 
-                `Name of the input file to be used in the analysis. Including extensions if any.<br /> 
-                e.g. <code>myfile.bamlist</code>`
+                `Name of the input file to be used in the analysis. Including extensions if any.
+                Provide path to input file if you are not going to run the code in the same directory as the input file.
+                e.g. <code>/home/myuser/project/myfile.bamlist</code>`
         );
-        addFormItem(Step2Div, InfileNamePop, InfileNameLabel, InfileName);
+        addFormItem("step-2-div", InfileNamePop, InfileNameLabel, InfileName);
         FunctionList.push(getValue.bind(null, "", "infileName"));
 
         // enable new popovers
@@ -405,10 +411,54 @@ var getAnalysis = function(AnalysisNo){
 
 }
 
+var addStep = function(StepId){
+
+
+    var NewStep = document.createElement('div');
+    NewStep.id = StepId;
+    NewStep.setAttribute("style","display: none;");
+    NewStep.classList.add("row", "setup-content");
+
+    var NewStepDiv = document.createElement('div');
+    NewStepDiv.id = StepId + "-div";
+    NewStepDiv.classList.add("form-grid");
+
+    var NewStepBtn = document.createElement('div');
+    NewStepBtn.classList.add("row", "button-row");
+    var PrevBtn = document.createElement('button');
+    PrevBtn.classList.add("btn","btn-primary","prevBtn","btn-lg","pull-left");
+    PrevBtn.innerHTML = "Previous";
+    PrevBtn.setAttribute("type", "button");
+    var Divider = document.createElement('div');
+    Divider.classList.add("divider");
+    var NextBtn = document.createElement('button');
+    NextBtn.classList.add("btn","btn-primary","nextBtn","btn-lg","pull-right");
+    NextBtn.innerHTML = "Next";
+    NextBtn.setAttribute("type", "button");
+    var BtnFragment = document.createDocumentFragment();
+    BtnFragment.appendChild(PrevBtn);
+    BtnFragment.appendChild(Divider);
+    BtnFragment.appendChild(NextBtn);
+    NewStepBtn.appendChild(BtnFragment);
+
+    var DocumentFragment = document.createDocumentFragment();
+    DocumentFragment.appendChild(NewStepDiv);
+    DocumentFragment.appendChild(NewStepBtn);
+    NewStep.appendChild(DocumentFragment);
+    
+    var LastStep = document.getElementById("step-3");
+
+    LastStep.parentNode.insertBefore(NewStep, LastStep);
+
+    // activate stepping form buttons
+    activateStep();
+
+}
+
 
 // stepping form
 // using jQuery
-$(document).ready(function(){
+var activateStep = function(){
 
     var navListItems = $('div.setup-panel div button'),
         allContent = $('.setup-content'),
@@ -461,7 +511,7 @@ $(document).ready(function(){
 
     $('div.setup-panel div button.btn-primary').trigger('click');
 
-});
+}
 
 
 
@@ -488,3 +538,5 @@ window.onload=function(){
     document.getElementById("pipelineName").value = "";
     //document.getElementById("analysis").value = "";
 }
+
+$(document).ready(activateStep());
