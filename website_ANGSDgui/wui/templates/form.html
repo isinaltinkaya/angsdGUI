@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="maincol-form">
-    <form id="wuiForm" class="wuiForm" role="form" action="">
+    <form id="wuiForm" class="wuiForm">
         <div class="stepwizard steps-col">
             <div class="stepwizard-row setup-panel">
                 <div class="stepwizard-step">
@@ -35,7 +35,7 @@
                     </a>
                     <label for="analysis" class="col-form-label requiredField form-control-label"> Analysis <span class="asteriskField">*</span>
                     </label>
-                    <select name="analysis" class="select form-control" id="analysis" required="required" onChange="getAnalysis(this.value);">
+                    <select name="analysis" class="select form-control" id="analysis" required="required" onChange="getAnalysis();">
                         <option value=""> </option>
                         <option value="1">Site frequency spectrum</option>
                         <option value="2">Population branch statistics</option>
@@ -44,11 +44,13 @@
                 </div>
             </div>
             <div class="row button-row">
-                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                <button class="btn navbtn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
             </div>
         </div>
         <div class="row setup-content step-3" id="step-3">
             <div class="form-grid">
+                <div></div>
+                <div></div>
                 <div class="formItem"><h> Your pipeline is ready!</h><br>You can download your pipeline or copy it to your clipboard.<br></div>
                 <div class="formItem">
                     <button type="button" onclick="Download()" class="DownloadButton" id="DownloadButton" data-toggle="tooltip" title="Download pipeline"><i class="fa fa-download"></i></button>
@@ -57,7 +59,7 @@
                 </div>
             </div>
             <div class="row button-row">
-                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                <button class="btn navbtn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
             </div>
         </div>
     </form>
