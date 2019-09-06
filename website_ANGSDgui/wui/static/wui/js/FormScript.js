@@ -7,6 +7,9 @@ var OutField = document.getElementById("code");
 var PipelineName = document.getElementById("pipelineName");
 var YourPipelineName = document.getElementById("yourPipelineName");
 var Analysis = document.getElementById("analysis");  
+ 
+// get analysis
+var Analysis = document.getElementById("analysis");
 
 // step 3
 //var Step3Div = document.getElementById("step-3-div");
@@ -127,6 +130,7 @@ var addFormItem = function(DivId, ObjectPop, ObjectLabel, ObjectName, Generation
 }
 
 
+// get software path if exists
 var getSoftwarePath = function(Software){
 
     var SoftwarePath = document.getElementById(Software);
@@ -165,7 +169,7 @@ var callSoftware = function(Software){
                 "Path to realSFS Software", 
                 `Path to realSFS in your file system. If empty, realSFS will be called as <code>realSFS</code>.<br />
                 For Linux systems, it can be found with command <code>which realSFS</code>.<br />
-                e.g. <code>/usr/bin/angsd/misc/realSFS</code><br />
+                e.g. <code>/usr/bin/angsd/misc/realSFS</code>
                 `
         );
         addFormItem("step-2-div", realSFSPop, realSFSLabel, realSFS, "gen2");
@@ -201,6 +205,48 @@ var callSoftware = function(Software){
     }
 }
 
+// add bam options
+var addBamOpt = function(){
+
+    // check if bamOpt select exists
+    if (document.getElementById("bamOpt")){
+        return;
+    }
+
+    var BamOpts = {
+        " ":"",
+        "Region":"-r",
+        "Region file":"-rf",
+        "Remove bads":"-remove_bads",
+        "Unique only":"-uniqueOnly",
+        "Min mapQ quality":"-minMapQ",
+        "Trim":"-trim",
+        "Only proper pairs":"-only_proper_pairs",
+        "Supply BAQ":"-baq",
+        "Check Bam headers":"-checkBamHeaders",
+        "Downsample":"-downSample",
+        "Set min chunk size":"-setMinChunkSize",
+    }
+    
+    var BamOpt = document.createElement('select');
+    createSelect(BamOpt, "bamOpt", BamOpts, "Required");
+    
+    var BamOptLabel = document.createElement('label');
+    createLabel(BamOptLabel, BamOpt.id, " Add options ");
+
+    var BamOptPop = document.createElement('a');
+    createPopover(
+            BamOptPop,
+            "Add additional options for bam file",
+            `Choose the option you want to add, and new option will be added when you click the plus sign.
+            Add the option to see the details about that option.
+            `
+    );
+    addFormItem("step-2-div", BamOptPop, BamOptLabel, BamOpt, "gen2");
+
+    enableNewPops();
+
+}
 
 // clear generated form items
 var clearGen = function(Generation){
@@ -220,19 +266,25 @@ var getInfileType = function(){
     if (InfileType){
 
         if (InfileType.value){
+
+            clearGen("gen2");
+
             var type = InfileType.value;
+
             // special cases require functions
             if (type == "saf"){
                 dorealSFS();
                 return getSoftwarePath("realSFS");
             }
             if (type == "-bam"){
-                clearGen("gen2");
+                callSoftware("angsd");
+                addBamOpt();
                 return getSoftwarePath("angsd") + " " + InfileType.value;
             }
             clearGen("gen2");
             return "";
         }
+        clearGen("gen2");
         return "";
     }
     return "";
@@ -294,13 +346,6 @@ var dorealSFS = function(){
 }
 
 
-var getFileTypeOptions = function(FileType){
-
-    callSoftware("angsd");
-    
-}
-
-
 var getValue = function(param, id){
 
     var Element = document.getElementById(id);
@@ -324,9 +369,8 @@ var FunctionList = [];
 
 // write step 2 according to analysis selection
 var getAnalysis = function(){
+
     
-    // get analysis
-    var Analysis = document.getElementById("analysis");
     var AnalysisNo = Analysis.selectedIndex;
 
     // clear step 2 if previously created
