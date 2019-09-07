@@ -267,8 +267,6 @@ var getInfileType = function(){
 
         if (InfileType.value){
 
-            clearGen("gen2");
-
             var type = InfileType.value;
 
             // special cases require functions
