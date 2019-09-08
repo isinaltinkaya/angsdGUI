@@ -289,7 +289,7 @@ var addBamOpt = function(){
             Add the option to see the details about that option.
             `
     );
-    addOptItem("step-2-div", "fa-plus", "addNewOpt('bamOpt')", BamOptPop, BamOptLabel, BamOpt, "G2");
+    addOptItem("step-2-div", "fa-plus", "addNewOpt('bamOpt');", BamOptPop, BamOptLabel, BamOpt, "G2");
 
     enableNewPops();
 
@@ -320,11 +320,21 @@ var addNewOpt = function(OptItem){
             e.g. <code>chr22:100000-2000000</code> for region 100000-2000000 in Chromosome 22.
             `
     );
-
-    addFormItem("step-2-div", NewOptPop, NewOptLabel, NewOpt, "G3");
+    var MinusFunction = "killMe('" + NewOptId + "');";
+    addOptItem("step-2-div", "fa-minus", MinusFunction , NewOptPop, NewOptLabel, NewOpt, "G3");
     FunctionList.push(getValue.bind(null, BamOptsParam[NewOptId], NewOptId));
 
     enableNewPops();
+
+}
+
+
+// delete your own item
+var killMe = function(MyId){
+
+    var Me = document.getElementById(MyId);
+    Me.parentNode.parentNode.removeChild(Me.parentNode);
+    rewriteCode();
 
 }
 
@@ -334,6 +344,12 @@ var clearGen = function(Generation){
 
     var finder = '.' + Generation;
     $(finder).remove();
+
+    // clear sub generations too
+    if (Generation == "G2"){
+        $(".G2").remove();
+        $(".G3").remove();
+    }
 
 }
 
