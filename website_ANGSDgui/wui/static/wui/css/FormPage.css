@@ -225,3 +225,17 @@ body {
     height:auto;
     display:inline-block;
 }
+
+.fa-plus{
+    cursor: pointer;
+    width:5px;
+    height:5px;
+    color: green;
+}
+
+.fa-minus{
+    cursor: pointer;
+    width:5px;
+    height:5px;
+    color: red;
+}

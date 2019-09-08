@@ -28,6 +28,38 @@ var InfileTypes = {
 };
 
 
+var BamOpts = {
+    " ":"",
+    "Region":"bamr",
+    "Region file":"bamrf",
+    "Remove bads":"bam_remove_bads",
+    "Unique only":"bam_uniqueOnly",
+    "Min mapQ quality":"bam_minMapQ",
+    "Trim":"bam_trim",
+    "Only proper pairs":"bam_only_proper_pairs",
+    "Supply BAQ":"bam_baq",
+    "Check Bam headers":"bam_checkBamHeaders",
+    "Downsample":"bam_downSample",
+    "Set min chunk size":"bam_setMinChunkSize",
+}
+
+    
+var BamOptsParam = {
+    " ":"",
+    "bamr":"-r",
+    "bamrf":"-rf",
+    "bam_remove_bads":"-remove_bads",
+    "bam_uniqueOnly":"-uniqueOnly",
+    "bam_minMapQ":"-minMapQ",
+    "bam_rim":"-trim",
+    "bam_only_proper_pairs":"-only_proper_pairs",
+    "bam_baq":"-baq",
+    "bam_checkBamHeaders":"-checkBamHeaders",
+    "bam_downSample":"-downSample",
+    "bam_setMinChunkSize":"-setMinChunkSize",
+}
+
+
 // get and write pipeline name on code block header
 var getPipelineName = function(){
     if(PipelineName.value){
@@ -96,11 +128,15 @@ var createInput = function(Input, InputId, Required){
 
 
 // dynamic select
-var createSelect = function(Select, SelectId, OptionList, Required){
+var createSelect = function(Select, SelectId, OptionList, Required, onChange){
     Select.id = SelectId;
     Select.classList.add("select", "form-control");
     Select.setAttribute("name", SelectId);
-    Select.setAttribute("onChange", "rewriteCode();");
+    if (onChange){
+        Select.setAttribute("onChange", onChange);
+    } else {
+        Select.setAttribute("onChange", "rewriteCode();");
+    }
     if (Required == "Required"){
         Select.setAttribute("required", "required");
     }
@@ -172,7 +208,7 @@ var callSoftware = function(Software){
                 e.g. <code>/usr/bin/angsd/misc/realSFS</code>
                 `
         );
-        addFormItem("step-2-div", realSFSPop, realSFSLabel, realSFS, "gen2");
+        addFormItem("step-2-div", realSFSPop, realSFSLabel, realSFS, "G2");
 
         // enable new popovers
         enableNewPops();
@@ -197,12 +233,38 @@ var callSoftware = function(Software){
                 e.g. <code>/usr/bin/angsd/angsd</code><br />
                 `
         );
-        addFormItem("step-2-div", angsdPop, angsdLabel, angsd, "gen2");
+        addFormItem("step-2-div", angsdPop, angsdLabel, angsd, "G2");
 
         // enable new popovers
         enableNewPops();
 
     }
+}
+
+var addOptItem = function(DivId, FaClass, FaFunction, ObjectPop, ObjectLabel, ObjectName, Generation){
+
+    var Div = document.getElementById(DivId);
+    var Div1 = document.createElement('div');
+    Div1.classList.add("formItem");
+
+    if (Generation){
+        // add generation
+        Div1.classList.add(Generation);
+    }
+
+    var Fa = document.createElement('i');
+    Fa.classList.add("fa", FaClass);
+    // Fa icon onclick function
+    Fa.setAttribute("onclick", FaFunction)
+
+    var DocumentFragment = document.createDocumentFragment();
+    DocumentFragment.appendChild(Div1);
+    Div1.appendChild(ObjectPop);
+    Div1.appendChild(ObjectLabel);
+    Div1.appendChild(Fa);
+    Div1.appendChild(ObjectName);
+    Div.appendChild(DocumentFragment);
+    
 }
 
 // add bam options
@@ -213,21 +275,6 @@ var addBamOpt = function(){
         return;
     }
 
-    var BamOpts = {
-        " ":"",
-        "Region":"-r",
-        "Region file":"-rf",
-        "Remove bads":"-remove_bads",
-        "Unique only":"-uniqueOnly",
-        "Min mapQ quality":"-minMapQ",
-        "Trim":"-trim",
-        "Only proper pairs":"-only_proper_pairs",
-        "Supply BAQ":"-baq",
-        "Check Bam headers":"-checkBamHeaders",
-        "Downsample":"-downSample",
-        "Set min chunk size":"-setMinChunkSize",
-    }
-    
     var BamOpt = document.createElement('select');
     createSelect(BamOpt, "bamOpt", BamOpts, "Required");
     
@@ -242,11 +289,45 @@ var addBamOpt = function(){
             Add the option to see the details about that option.
             `
     );
-    addFormItem("step-2-div", BamOptPop, BamOptLabel, BamOpt, "gen2");
+    addOptItem("step-2-div", "fa-plus", "addNewOpt('bamOpt')", BamOptPop, BamOptLabel, BamOpt, "G2");
 
     enableNewPops();
 
 }
+
+var addNewOpt = function(OptItem){
+
+    var Item = document.getElementById(OptItem);
+    var NewOptId = Item.options[Item.selectedIndex].value; 
+
+    // if no options selected, do not add a new option
+    if (!NewOptId){ return; }
+
+    // if element exists, do not add the element
+    if (document.getElementById(NewOptId)){ return; }
+
+    var NewOptText = Item.options[Item.selectedIndex].text;
+    var NewOpt = document.createElement('input');
+    createInput(NewOpt, NewOptId);
+    var NewOptLabel = document.createElement('label');
+    createLabel(NewOptLabel, NewOptId, " "+ NewOptText +" ");
+    var NewOptPop = document.createElement('a');
+    createPopover(
+            NewOptPop, 
+            "Info", 
+            `Info <br /> 
+            e.g. <code>chr22</code> for Chromosome 22<br />
+            e.g. <code>chr22:100000-2000000</code> for region 100000-2000000 in Chromosome 22.
+            `
+    );
+
+    addFormItem("step-2-div", NewOptPop, NewOptLabel, NewOpt, "G3");
+    FunctionList.push(getValue.bind(null, BamOptsParam[NewOptId], NewOptId));
+
+    enableNewPops();
+
+}
+
 
 // clear generated form items
 var clearGen = function(Generation){
@@ -257,7 +338,40 @@ var clearGen = function(Generation){
 }
 
 
-// define functions for next inputs
+// InfileType onchange
+var ocInfileType = function(){
+    
+    // clear generation from previous choice
+    clearGen("G2");
+
+    var InfileType = document.getElementById("infileType");
+
+    // generate the new generation
+    // if element exists
+    if (InfileType){
+
+        if (InfileType.value){
+
+            var type = InfileType.value;
+
+            // special cases require functions
+            if (type == "saf"){
+                dorealSFS();
+            }
+            if (type == "-bam"){
+                callSoftware("angsd");
+                addBamOpt();
+            }
+        }
+    }
+
+    // update pipeline
+    rewriteCode();
+
+}
+
+
+// get infile type to modify pipeline
 var getInfileType = function(){
 
     var InfileType = document.getElementById("infileType");
@@ -271,18 +385,13 @@ var getInfileType = function(){
 
             // special cases require functions
             if (type == "saf"){
-                dorealSFS();
                 return getSoftwarePath("realSFS");
             }
             if (type == "-bam"){
-                callSoftware("angsd");
-                addBamOpt();
                 return getSoftwarePath("angsd") + " " + InfileType.value;
             }
-            clearGen("gen2");
             return "";
         }
-        clearGen("gen2");
         return "";
     }
     return "";
@@ -312,7 +421,7 @@ var dorealSFS = function(){
             e.g. <code>chr22:100000-2000000</code> for region 100000-2000000 in Chromosome 22.
             `
     );
-    addFormItem("step-2-div", realSFS_RegionPop, realSFS_RegionLabel, realSFS_Region, "gen2");
+    addFormItem("step-2-div", realSFS_RegionPop, realSFS_RegionLabel, realSFS_Region, "G2");
     FunctionList.push(getValue.bind(null, "-r", "realSFS_Region"));
 
 
@@ -334,7 +443,7 @@ var dorealSFS = function(){
              <code>-nSites</code> is used for choosing a max number of sites that should be used for the optimization. Using more sites will give you more reliable estimates. If you dont specify anything it will try to load all sites into memory. 
             `
     );
-    addFormItem("step-2-div", realSFS_nSitesPop, realSFS_nSitesLabel, realSFS_nSites, "gen2");
+    addFormItem("step-2-div", realSFS_nSitesPop, realSFS_nSitesLabel, realSFS_nSites, "G2");
     FunctionList.push(getValue.bind(null, "-nSites", "realSFS_nSites"));
 
 
@@ -368,7 +477,6 @@ var FunctionList = [];
 // write step 2 according to analysis selection
 var getAnalysis = function(){
 
-    
     var AnalysisNo = Analysis.selectedIndex;
 
     // clear step 2 if previously created
@@ -395,7 +503,7 @@ var getAnalysis = function(){
 
         // create input file type select
         var InfileType = document.createElement('select');  
-        createSelect(InfileType, "infileType", InfileTypes, "Required");
+        createSelect(InfileType, "infileType", InfileTypes, "Required", "ocInfileType();");
         var InfileTypeLabel = document.createElement('label');
         createLabel(InfileTypeLabel, InfileType.id, " Input file type ", "Required");
         var InfileTypePop = document.createElement('a');
