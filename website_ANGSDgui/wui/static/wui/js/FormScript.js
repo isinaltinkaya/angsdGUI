@@ -270,8 +270,9 @@ var addOptItem = function(FaClass, FaFunction, ObjectPop, ObjectLabel, ObjectNam
     var CurrentDiv = CurrentStep + "-div";
     if (isFull(CurrentStep)){
         // if current step is full
-        CurrentDiv = nextStep(CurrentStep) + "-div";
-        addStep(CurrentDiv);
+        CurrentStep = nextStep(CurrentStep);
+        addStep(CurrentStep);
+        CurrentDiv = CurrentStep + "-div";
         var Div = document.getElementById(CurrentDiv);
     } else {
         // current step is not full
@@ -627,6 +628,10 @@ var getAnalysis = function(){
 // add dynamic step
 var addStep = function(StepId){
 
+    if(document.getElementById(StepId)){
+        return;
+    }
+
     // add new step
     var NewStep = document.createElement('div');
     NewStep.id = StepId;
@@ -726,7 +731,7 @@ var activateStep = function(){
     allPrevBtn.click(function(){
         var curStep = $(this).closest(".setup-content"),
             curStepBtn = curStep.attr("id"),
-            prevStepWizard = $('button[href="#' + curStepBtn + '"]').parent().prev().children("button");
+            prevStepWizard = $('div.CurrentStep button[href="#' + curStepBtn + '"]').parent().prev().children("button");
 
             prevStepWizard.removeAttr('disabled').trigger('click');
     });
