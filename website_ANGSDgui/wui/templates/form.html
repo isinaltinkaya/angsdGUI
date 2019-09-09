@@ -7,20 +7,20 @@
         <div class="stepwizard steps-col">
             <div class="stepwizard-row setup-panel">
                 <div class="stepwizard-step">
-                    <button href="#step-1" type="button" class="btn btn-primary btn-circle shadow" disabled="disabled">1</button>
+                    <button href="#step-1" class="btn btn-primary btn-circle shadow" disabled="disabled">1</button>
                     <p>Step 1</p>
                 </div>
                 <div class="stepwizard-step">
-                    <button href="#step-2" type="button" class="btn btn-default btn-circle shadow" disabled="disabled">2</button>
+                    <button href="#step-2"class="btn btn-default btn-circle shadow" disabled="disabled">2</button>
                     <p>Step 2</p>
                 </div>
                 <div class="stepwizard-step">
-                    <button href="#step-3" type="button" class="btn btn-default btn-circle shadow" disabled="disabled">3</button>
+                    <button href="#step-3" class="btn btn-default btn-circle shadow" disabled="disabled">3</button>
                     <p>Step 3</p>
                 </div>
             </div>
         </div>
-        <div class="row setup-content step-1" id="step-1">
+        <div class="row setup-content step-1 CurrentStep" id="step-1">
             <div class="form-grid">
                 <div class="formItem">
                     <a href="#" data-toggle="popover" data-trigger="focus" title="Pipeline Name" data-content="Desired name of your pipeline without '.sh' extension. Follow the rules for naming files in Linux/Unix. If empty, pipeline will be called as <code>ANGSDgui_pipeline</code>.">
@@ -47,7 +47,7 @@
                 <button class="btn navbtn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
             </div>
         </div>
-        <div class="row setup-content step-3" id="step-3">
+        <div class="row setup-content step-8" id="step-8">
             <div class="form-grid">
                 <div></div>
                 <div></div>

@@ -7,13 +7,10 @@ var OutField = document.getElementById("code");
 var PipelineName = document.getElementById("pipelineName");
 var YourPipelineName = document.getElementById("yourPipelineName");
 var Analysis = document.getElementById("analysis");  
+
+var curStep = $(this).closest(".setup-content");
+
  
-// get analysis
-var Analysis = document.getElementById("analysis");
-
-// step 3
-//var Step3Div = document.getElementById("step-3-div");
-
 // define selection attributes
 var InfileTypes = {
     " ":"",
@@ -57,6 +54,24 @@ var BamOptsParam = {
     "bam_checkBamHeaders":"-checkBamHeaders",
     "bam_downSample":"-downSample",
     "bam_setMinChunkSize":"-setMinChunkSize",
+}
+
+
+// add virtual step buttons
+var addVBtn = function(Step){
+
+    // return if button exists
+    //console.log( $('.virtualbtn[href="#' + Step + '"]') )
+    //if ( $('.virtualbtn[href="#' + Step + '"]') ){
+    //    return;
+    //}
+    
+    var Btn = $('<button/>').attr({type: "button", style: "display: none;", disabled: "disabled"});
+    Btn.addClass('virtualbtn');
+    Btn.attr('href', '#' + Step);
+    var Path = "div." + Step;
+    $(Path).append(Btn);
+
 }
 
 
@@ -241,9 +256,28 @@ var callSoftware = function(Software){
     }
 }
 
-var addOptItem = function(DivId, FaClass, FaFunction, ObjectPop, ObjectLabel, ObjectName, Generation){
+var nextStep = function(Step){
 
-    var Div = document.getElementById(DivId);
+    var StepNo = Step.slice(5,6);
+    StepNo++;
+    return "step-" + StepNo;
+
+}
+
+var addOptItem = function(FaClass, FaFunction, ObjectPop, ObjectLabel, ObjectName, Generation){
+
+    var CurrentStep = document.getElementsByClassName("CurrentStep")[0].id;
+    var CurrentDiv = CurrentStep + "-div";
+    if (isFull(CurrentStep)){
+        // if current step is full
+        CurrentDiv = nextStep(CurrentStep) + "-div";
+        addStep(CurrentDiv);
+        var Div = document.getElementById(CurrentDiv);
+    } else {
+        // current step is not full
+        var Div = document.getElementById(CurrentDiv);
+    }
+
     var Div1 = document.createElement('div');
     Div1.classList.add("formItem");
 
@@ -276,7 +310,7 @@ var addBamOpt = function(){
     }
 
     var BamOpt = document.createElement('select');
-    createSelect(BamOpt, "bamOpt", BamOpts, "Required");
+    createSelect(BamOpt, "bamOpt", BamOpts);
     
     var BamOptLabel = document.createElement('label');
     createLabel(BamOptLabel, BamOpt.id, " Add options ");
@@ -289,7 +323,7 @@ var addBamOpt = function(){
             Add the option to see the details about that option.
             `
     );
-    addOptItem("step-2-div", "fa-plus", "addNewOpt('bamOpt');", BamOptPop, BamOptLabel, BamOpt, "G2");
+    addOptItem("fa-plus", "addNewOpt('bamOpt');", BamOptPop, BamOptLabel, BamOpt, "G2");
 
     enableNewPops();
 
@@ -321,7 +355,7 @@ var addNewOpt = function(OptItem){
             `
     );
     var MinusFunction = "killMe('" + NewOptId + "');";
-    addOptItem("step-2-div", "fa-minus", MinusFunction , NewOptPop, NewOptLabel, NewOpt, "G3");
+    addOptItem("fa-minus", MinusFunction , NewOptPop, NewOptLabel, NewOpt, "G3");
     FunctionList.push(getValue.bind(null, BamOptsParam[NewOptId], NewOptId));
 
     enableNewPops();
@@ -597,7 +631,7 @@ var addStep = function(StepId){
     var NewStep = document.createElement('div');
     NewStep.id = StepId;
     NewStep.setAttribute("style","display: none;");
-    NewStep.classList.add("row", "setup-content");
+    NewStep.classList.add("row", "setup-content", StepId);
 
     // add new step div to add items later 
     var NewStepDiv = document.createElement('div');
@@ -628,12 +662,34 @@ var addStep = function(StepId){
     DocumentFragment.appendChild(NewStepBtn);
     NewStep.appendChild(DocumentFragment);
     
-    var LastStep = document.getElementById("step-3");
+    var LastStep = document.getElementById("step-8");
 
     LastStep.parentNode.insertBefore(NewStep, LastStep);
 
+    // add virtual button for stepping form
+    addVBtn(StepId);
+
     // activate stepping form buttons
     activateStep();
+
+}
+
+// check if step is full
+var isFull = function(Step){
+ 
+    var Parent = document.getElementById(Step);
+    var FormItems = Parent.getElementsByClassName("formItem");
+    if (FormItems.length > 7){
+        return true;
+    }
+    return false;
+
+}
+
+
+var jumpTo = function(Step){
+
+    location.href = "#" + Step;
 
 }
 
@@ -642,7 +698,7 @@ var addStep = function(StepId){
 // using jQuery
 var activateStep = function(){
 
-    var navListItems = $('div.setup-panel div button'),
+    var navListItems = $('.virtualbtn'),
         allContent = $('.setup-content'),
         allNextBtn = $('.nextBtn'),
         allPrevBtn = $('.prevBtn');
@@ -655,10 +711,14 @@ var activateStep = function(){
         $item = $(this);
         
         if (!$item.hasClass('disabled')) {
-            navListItems.removeClass('btn-primary').addClass('btn-default');
-            $item.addClass('btn-primary','disabled');
+            //navListItems.removeClass('btn-primary').addClass('btn-default');
+            //$item.addClass('btn-primary','disabled');
             allContent.hide();
+            // remove all current step classes
+            allContent.removeClass('CurrentStep');
             $target.show();
+            // set target as current step
+            $target.addClass('CurrentStep');
             $target.find('input:eq(0)').focus();
         }
     });
@@ -666,7 +726,7 @@ var activateStep = function(){
     allPrevBtn.click(function(){
         var curStep = $(this).closest(".setup-content"),
             curStepBtn = curStep.attr("id"),
-            prevStepWizard = $('div.setup-panel div button[href="#' + curStepBtn + '"]').parent().prev().children("button");
+            prevStepWizard = $('button[href="#' + curStepBtn + '"]').parent().prev().children("button");
 
             prevStepWizard.removeAttr('disabled').trigger('click');
     });
@@ -674,11 +734,13 @@ var activateStep = function(){
     allNextBtn.click(function(){
         var curStep = $(this).closest(".setup-content"),
             curStepBtn = curStep.attr("id"),
-            nextStepWizard = $('div.setup-panel div button[href="#' + curStepBtn + '"]').parent().next().children("button"),
+            nextStepWizard = $('div.CurrentStep button[href="#' + curStepBtn + '"]').parent().next().children("button"),
+            NextStep = document.getElementById(curStepBtn).nextElementSibling.id,
             curInputs = curStep.find("input[required], select[required]"),
             isValid = true;
-    
+
         $(".form-control").removeClass("is-invalid");
+
         for(var i=0; i<curInputs.length; i++){
             if (!curInputs[i].validity.valid){
                 isValid = false;
@@ -686,15 +748,16 @@ var activateStep = function(){
             }
         }
 
-        if (isValid)
+        if (isValid){
             nextStepWizard.removeAttr('disabled').trigger('click');
+        }
      
     });
 
-    $('div.setup-panel div button.btn-primary').trigger('click');
+    // runs onload, loads initial step-1
+    $('div.CurrentStep .virtualbtn').trigger('click');
 
 }
-
 
 // update code onkeyup
 var updateCode = function(){
@@ -713,12 +776,11 @@ var rewriteCode = function(){
 }
 
 
-// rewrite code on window onload
-window.onload = function(){
-}
-
-
+// rewrite code when document is ready
 $(document).ready(function(){
+    // add initial step virtual buttons
+    addVBtn("step-1");
+    addVBtn("step-8");
     activateStep();
     rewriteCode();
     getAnalysis();
