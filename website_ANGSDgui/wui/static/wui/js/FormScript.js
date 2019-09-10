@@ -699,9 +699,20 @@ var isFull = function(Step){
 }
 
 
-var jumpTo = function(Step){
+// update navigation bar
+var updNavBar = function(CurrentStep){
 
-    location.href = "#" + Step;
+    var AllNav = $('.stepwizard-step button');
+    var MainSteps = ["step-1", "step-last"];
+    if (MainSteps.includes(CurrentStep)){ 
+        var CurrentNav = $('.stepwizard-step .' + CurrentStep);
+    } else {
+        // current step is a substep
+        var CurrentNav = $('.stepwizard-step .substep');
+    }
+
+    AllNav.removeClass('btn-primary').addClass('btn-default');
+    CurrentNav.removeClass('btn-default').addClass('btn-primary');
 
 }
 
@@ -710,44 +721,52 @@ var jumpTo = function(Step){
 // using jQuery
 var activateStep = function(){
 
-    var navListItems = $('.virtualbtn'),
-        allContent = $('.setup-content'),
-        allNextBtn = $('.nextBtn'),
-        allPrevBtn = $('.prevBtn');
+    var VirtualBtn = $('.virtualbtn'),
+        AllContent = $('.setup-content'),
+        AllNextBtn = $('.nextBtn'),
+        AllPrevBtn = $('.prevBtn');
 
-    allContent.hide();
 
-    navListItems.click(function(e){
+    AllContent.hide();
+
+
+    VirtualBtn.click(function(e){
         e.preventDefault();
         var $target = $($(this).attr('href')),
         $item = $(this);
         
         if (!$item.hasClass('disabled')) {
-            //navListItems.removeClass('btn-primary').addClass('btn-default');
+            //navBar.removeClass('btn-primary').addClass('btn-default');
             //$item.addClass('btn-primary','disabled');
-            allContent.hide();
+            AllContent.hide();
             // remove all current step classes
-            allContent.removeClass('CurrentStep');
+            AllContent.removeClass('CurrentStep');
             $target.show();
             // set target as current step
             $target.addClass('CurrentStep');
             $target.find('input:eq(0)').focus();
         }
     });
-  
-    allPrevBtn.click(function(){
-        var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            prevStepWizard = $('div.CurrentStep button[href="#' + curStepBtn + '"]').parent().prev().children("button");
 
-            prevStepWizard.removeAttr('disabled').trigger('click');
+  
+    AllPrevBtn.click(function(){
+        var curStep = $(this).closest(".setup-content"),
+            curStepId = curStep.attr("id"),
+            prevStepWizard = $('div.CurrentStep button[href="#' + curStepId + '"]').parent().prev().children("button"),
+            PrevStep = document.getElementById(curStepId).previousElementSibling.id;
+
+        updNavBar(PrevStep);
+
+        prevStepWizard.removeAttr('disabled').trigger('click');
+            
     });
 
-    allNextBtn.click(function(){
+
+    AllNextBtn.click(function(){
         var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            nextStepWizard = $('div.CurrentStep button[href="#' + curStepBtn + '"]').parent().next().children("button"),
-            NextStep = document.getElementById(curStepBtn).nextElementSibling.id,
+            curStepId = curStep.attr("id"),
+            nextStepWizard = $('div.CurrentStep button[href="#' + curStepId + '"]').parent().next().children("button"),
+            NextStep = document.getElementById(curStepId).nextElementSibling.id,
             curInputs = curStep.find("input[required], select[required]"),
             isValid = true;
 
@@ -761,15 +780,20 @@ var activateStep = function(){
         }
 
         if (isValid){
+            updNavBar(NextStep);
             nextStepWizard.removeAttr('disabled').trigger('click');
         }
      
     });
 
+
     // runs onload, loads initial step-1
     $('div.CurrentStep .virtualbtn').trigger('click');
+    var curStep = $(this).closest(".setup-content");
+    updNavBar(curStep);
 
 }
+
 
 // update code onkeyup
 var updateCode = function(){
