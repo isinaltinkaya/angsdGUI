@@ -21,6 +21,25 @@ body {
     text-align: center;
 }
 
+.navbar{
+    font-family: "Linux Libertine",Georgia,Times,serif;
+    font-size: 1.25rem;
+    line-height: 1.25;
+}
+
+.navbar-brand{
+    font-size: 1.5rem;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-right: 1rem !important;
+}
+
+.nav-link:hover{
+    padding-top: 1rem !important;
+    color: white !important;
+
+}
+
 .wuiForm{
     width: 100%;
     height: 100%;
