@@ -663,6 +663,8 @@ var addStep = function(StepId){
     NextBtn.classList.add("btn","btn-primary","nextBtn","btn-lg","pull-right");
     NextBtn.innerHTML = "Next";
     NextBtn.setAttribute("type", "button");
+    NextBtn.setAttribute("data-toggle", "tooltip");
+    NextBtn.setAttribute("data-original-title", "New options in the next step!");
     var BtnFragment = document.createDocumentFragment();
     BtnFragment.appendChild(PrevBtn);
     BtnFragment.appendChild(Divider);
@@ -683,6 +685,13 @@ var addStep = function(StepId){
 
     // activate stepping form buttons
     activateStep();
+
+    // trial
+    var CurrentStepId = $(".CurrentStep").attr("id");
+    var Tooltip = $("." + CurrentStepId + " .button-row .nextBtn");
+    Tooltip.tooltip("show");
+    // wait 3 seconds and hide the message
+    setTimeout(function(){Tooltip.tooltip("hide")}, 3000);
 
 }
 
