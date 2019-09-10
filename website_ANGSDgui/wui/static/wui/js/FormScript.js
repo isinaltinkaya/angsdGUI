@@ -85,16 +85,23 @@ var getPipelineName = function(){
 }
 
 
-// clear all childs of div
-var clearDiv = function(DivId){
+// remove a specific div
+var rmDiv = function(DivId){
     var Div = document.getElementById(DivId);
-    var child = Div.lastElementChild;
-    while (child){
-        Div.removeChild(child);
-        child = Div.lastElementChild;
-    }
+
 }
 
+// remove substeps following current step
+var rmSubSteps = function(){
+
+    var SubSteps = $(".CurrentStep").nextUntil(".step-last");
+
+    // if SubSteps exists
+    if (SubSteps){
+        SubSteps.remove();
+    }
+
+}
 
 // enable new popovers
 var enableNewPops = function(){
@@ -382,7 +389,6 @@ var clearGen = function(Generation){
 
     // clear sub generations too
     if (Generation == "G2"){
-        $(".G2").remove();
         $(".G3").remove();
     }
 
@@ -394,6 +400,9 @@ var ocInfileType = function(){
     
     // clear generation from previous choice
     clearGen("G2");
+
+    // remove previously generated substeps
+    rmSubSteps();
 
     var InfileType = document.getElementById("infileType");
 
@@ -530,10 +539,8 @@ var getAnalysis = function(){
 
     var AnalysisNo = Analysis.selectedIndex;
 
-    // clear step 2 if previously created
-    if (document.getElementById("step-2-div")){
-        clearDiv("step-2-div");
-    }
+    // remove previously generated substeps
+    rmSubSteps();
 
     // clear list of functions
     FunctionList = [];
@@ -636,7 +643,7 @@ var addStep = function(StepId){
     var NewStep = document.createElement('div');
     NewStep.id = StepId;
     NewStep.setAttribute("style","display: none;");
-    NewStep.classList.add("row", "setup-content", StepId);
+    NewStep.classList.add("row", "setup-content", "substep", StepId);
 
     // add new step div to add items later 
     var NewStepDiv = document.createElement('div');
@@ -667,7 +674,7 @@ var addStep = function(StepId){
     DocumentFragment.appendChild(NewStepBtn);
     NewStep.appendChild(DocumentFragment);
     
-    var LastStep = document.getElementById("step-8");
+    var LastStep = document.getElementById("step-last");
 
     LastStep.parentNode.insertBefore(NewStep, LastStep);
 
@@ -785,7 +792,7 @@ var rewriteCode = function(){
 $(document).ready(function(){
     // add initial step virtual buttons
     addVBtn("step-1");
-    addVBtn("step-8");
+    addVBtn("step-last");
     activateStep();
     rewriteCode();
     getAnalysis();
