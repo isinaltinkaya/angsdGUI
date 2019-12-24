@@ -8,7 +8,20 @@ var OutField = document.getElementById("code");
 var PipelineName = document.getElementById("pipelineName");
 var YourPipelineName = document.getElementById("yourPipelineName");
 var Analysis = document.getElementById("analysis");  
+var AnalysisNo = Analysis.selectedIndex;
+var AnalysisName = Analysis.options[AnalysisNo].text;
 
+// read json file using jquery
+var json = $.ajax({
+    url: '/static/wui/js/Analyses.json',
+    type: 'GET',
+    dataType: 'json',
+    dataContent: 'application/json',
+    data: {get_param: 'value'},
+    success: function (data) {
+        console.log(data.SFS[0].AnalysisName)
+  }
+});
 
 // define selection attributes
 var InfileTypes = {
@@ -536,7 +549,6 @@ var FunctionList = [];
 // write step 2 according to analysis selection
 var getAnalysis = function(){
 
-    var AnalysisNo = Analysis.selectedIndex;
 
     // remove previously generated substeps
     rmSubSteps();
