@@ -8,17 +8,16 @@ var OutField = document.getElementById("code");
 var PipelineName = document.getElementById("pipelineName");
 var YourPipelineName = document.getElementById("yourPipelineName");
 var Analysis = document.getElementById("analysis");  
-//var AnalysisName = Analysis.options[AnalysisNo].text;
 
 // read json file using jquery
-var json = $.ajax({
+var getJSON = $.ajax({
     url: '/static/wui/js/Analyses.json',
     type: 'GET',
     dataType: 'json',
     dataContent: 'application/json',
     data: {get_param: 'value'},
     success: function (data) {
-        console.log(data.SFS[0].AnalysisName)
+        console.log(data.SFS[0].Analysis_Name)
   }
 });
 
@@ -549,6 +548,8 @@ var FunctionList = [];
 var getAnalysis = function(){
 
     var AnalysisNo = Analysis.selectedIndex;
+    var AnalysisName = Analysis.options[AnalysisNo].text;
+    var Data = getJSON.responseJSON;
 
     // remove previously generated substeps
     rmSubSteps();
@@ -563,12 +564,13 @@ var getAnalysis = function(){
         rewriteCode();
 
     // site frequency spectrum
-    }else if (AnalysisNo == 1){
-
+    }else if (AnalysisName == Data.SFS[0].Analysis_Name){
         addStep("step-2");
 
         // add analysis specific input files
-        InfileTypes["saf.idx"] = "saf"    
+        InfileTypes[Data.SFS[0].Infile[0]] = Data.SFS[0].Infile[1];
+        //InfileTypes["saf.idx"] = "saf"    
+        //here
 
         // create input file type select
         var InfileType = document.createElement('select');  

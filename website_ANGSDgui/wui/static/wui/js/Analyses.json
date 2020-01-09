@@ -1,8 +1,9 @@
 {
     "SFS":[
         {
-            "AnalysisName":"Site frequency spectrum",
-            "Software":"realSFS"
+            "Analysis_Name":"Site frequency spectrum",
+            "Software":"realSFS",
+            "Infile":["saf.idx", "saf"]
         }
     ]
 }
