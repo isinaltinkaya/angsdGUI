@@ -8,8 +8,7 @@ var OutField = document.getElementById("code");
 var PipelineName = document.getElementById("pipelineName");
 var YourPipelineName = document.getElementById("yourPipelineName");
 var Analysis = document.getElementById("analysis");  
-var AnalysisNo = Analysis.selectedIndex;
-var AnalysisName = Analysis.options[AnalysisNo].text;
+//var AnalysisName = Analysis.options[AnalysisNo].text;
 
 // read json file using jquery
 var json = $.ajax({
@@ -549,6 +548,7 @@ var FunctionList = [];
 // write step 2 according to analysis selection
 var getAnalysis = function(){
 
+    var AnalysisNo = Analysis.selectedIndex;
 
     // remove previously generated substeps
     rmSubSteps();

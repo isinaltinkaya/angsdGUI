@@ -1,6 +1,8 @@
 {
     "SFS":[
-        {"AnalysisName":"Site frequency spectrum",
-        "Software":"realSFS"}
+        {
+            "AnalysisName":"Site frequency spectrum",
+            "Software":"realSFS"
+        }
     ]
 }
