@@ -76,7 +76,8 @@ body {
 
 .maincol-terminal {
     width: 45%;
-    margin-top: 15%;
+    margin-top: 10%;
+    vertical-align: middle;
 }
 
 .form-row {
@@ -93,19 +94,22 @@ body {
 
 .terminal {
     border-radius: 5px 5px 0 0;
-    position: relative;
+    position: fixed;
     text-align: left;
-    width: 80%;
-    margin-left: 5%;
+    width: 35%;
     justify-content: space-around;
     height: 60%;
+    transition: all 1s ease;
+    transform: translate(5%);
 }
+
 .terminal .top {
     background: #E8E6E8;
     color: black;
     padding: 5px;
     border-radius: 5px 5px 0 0;
 }
+
 .terminal .btns {
     position: absolute;
     top: 7px;
