@@ -1,10 +1,17 @@
 {
-    "SFS":[
-        {
-            "Analysis_Name":"Site frequency spectrum",
+    "SFS": {
+            "Name":"Site frequency spectrum",
             "Software":"realSFS",
-            "Infile":["saf.idx", "saf"]
-        }
-    ],
-    "Test":[]
+            "Infiles":{ " ":"",
+                "bam/bamlist":"-bam",
+                "cram":"-bam",
+                "mpileup":"-pileup",
+                "vcf":"-vcf-gl",
+                "bcf":"-vcf-gl",
+                "glf.gz":"-glf",
+                "glf10_text":"-glf10_text",
+                "beagle":"-beagle"}
+    },
+    
+    "Test": {} 
 }
