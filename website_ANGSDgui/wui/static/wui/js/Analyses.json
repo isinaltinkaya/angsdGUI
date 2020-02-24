@@ -1,17 +1,23 @@
 {
-    "SFS": {
-            "Name":"Site frequency spectrum",
-            "Software":"realSFS",
-            "Infiles":{ " ":"",
-                "bam/bamlist":"-bam",
-                "cram":"-bam",
-                "mpileup":"-pileup",
-                "vcf":"-vcf-gl",
-                "bcf":"-vcf-gl",
-                "glf.gz":"-glf",
-                "glf10_text":"-glf10_text",
-                "beagle":"-beagle"}
+    "realSFS": {
+        "Name":"Site frequency spectrum",
+        "Call":"./realSFS",
+        "Infiles":{ " ":"",
+            "saf.idx":""}
     },
     
-    "Test": {} 
+    "doDepth": { " ":"",
+        "Name":"Calculate depth",
+        "Call":"angsd",
+        "Infiles":{ " ":"",
+            "bam/bamlist":"-bam",
+            "cram":"-bam",
+            "mpileup":"-pileup",
+            "vcf":"-vcf-gl",
+            "bcf":"-vcf-gl",
+            "glf.gz":"-glf",
+            "glf10_text":"-glf10_text",
+            "beagle":"-beagle"}
+    } 
+
 }
