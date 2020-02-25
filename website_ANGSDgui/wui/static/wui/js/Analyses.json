@@ -1,12 +1,32 @@
 {
-    "realSFS": {
+
+    "Softwares":{
+        "angsd":{
+            "Call":"angsd",
+            "Label":" Path to angsd ",
+            "PopTitle":"Path to realSFS Software",
+            "PopExp":"Path to angsd in your file system. If empty, angsd will be called as <code>angsd</code>.<br />For Linux systems, it can be found with command <code>which angsd</code>.<br />e.g. <code>/usr/bin/angsd/angsd</code>"
+        },
+        "realSFS":{
+            "Call":"realSFS",
+            "Label":" Path to realSFS ",
+            "PopTitle":"Path to realSFS Software",
+            "PopExp":"Path to realSFS in your file system. If empty, realSFS will be called as <code>realSFS</code>.<br />For Linux systems, it can be found with command <code>which realSFS</code>.<br />e.g. <code>/usr/bin/angsd/misc/realSFS</code>"
+        }
+    },
+
+    "realSFS":{
         "Name":"Site frequency spectrum",
-        "Call":"./realSFS",
-        "Infiles":{ " ":"",
-            "saf.idx":""}
+        "Infiles":{ "":"",
+            "saf.idx":"",
+            "bam/bamlist":"-bam"},
+        "Software":{
+            "saf.idx":"realSFS",
+            "bam/bamlist":"angsd"
+        }
     },
     
-    "doDepth": { " ":"",
+    "doDepth":{ "":"",
         "Name":"Calculate depth",
         "Call":"angsd",
         "Infiles":{ " ":"",
