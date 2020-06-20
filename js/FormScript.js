@@ -15,7 +15,7 @@ var Software;
 var Data;
 // read json file using jquery
 var getJSON = $.ajax({
-	url: 'angsd.json',
+	url: './js/angsd.json',
 	type: 'GET',
 	dataType: 'json',
 	dataContent: 'application/json',
