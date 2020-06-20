@@ -170,9 +170,9 @@ var PipelineName = document.getElementById("pipelineName");
 
 var Download = function(){
     if(PipelineName.value){
-        var OutFileName = PipelineName.value + ".sh";
+        var OutFileName = PipelineName.value;
     }else{
-        var OutFileName = "ANGSDgui_pipeline.sh";
+        var OutFileName = "angsdGUI_pipeline.sh";
     }
     download(OutField.innerHTML, OutFileName, "text/plain");
 }
