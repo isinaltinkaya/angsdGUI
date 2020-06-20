@@ -1,3 +1,6 @@
 # Ignore vim swap files if any
 *.swp
 *.swo
+
+# Ignore jekyll related files
+.jekyll-cache/
