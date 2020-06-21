@@ -1,43 +1,105 @@
 {
+	"Software":{
+		"angsd":{
+			"Call":"angsd",
+			"Label":" Path to angsd ",
+			"PopTitle":"Path to realSFS Software",
+			"PopExp":"Path to angsd in your file system. If empty, angsd will be called as <code>angsd</code>.<br />For Linux systems, it can be found with command <code>which angsd</code>.<br />e.g. <code>/usr/bin/angsd/angsd</code>"
+		},
+		"realSFS":{
+			"Call":"realSFS",
+			"Label":" Path to realSFS ",
+			"PopTitle":"Path to realSFS Software",
+			"PopExp":"Path to realSFS in your file system. If empty, realSFS will be called as <code>realSFS</code>.<br />For Linux systems, it can be found with command <code>which realSFS</code>.<br />e.g. <code>/usr/bin/angsd/misc/realSFS</code>"
+		}
+	},
 
-    "Softwares":{
-        "angsd":{
-            "Call":"angsd",
-            "Label":" Path to angsd ",
-            "PopTitle":"Path to realSFS Software",
-            "PopExp":"Path to angsd in your file system. If empty, angsd will be called as <code>angsd</code>.<br />For Linux systems, it can be found with command <code>which angsd</code>.<br />e.g. <code>/usr/bin/angsd/angsd</code>"
-        },
-        "realSFS":{
-            "Call":"realSFS",
-            "Label":" Path to realSFS ",
-            "PopTitle":"Path to realSFS Software",
-            "PopExp":"Path to realSFS in your file system. If empty, realSFS will be called as <code>realSFS</code>.<br />For Linux systems, it can be found with command <code>which realSFS</code>.<br />e.g. <code>/usr/bin/angsd/misc/realSFS</code>"
-        }
-    },
-
-    "realSFS":{
-        "Name":"Site frequency spectrum",
-        "Infiles":{ "":"",
-            "saf.idx":"",
-            "bam/bamlist":"-bam"},
-        "Software":{
-            "saf.idx":"realSFS",
-            "bam/bamlist":"angsd"
-        }
-    },
-    
-    "doDepth":{ "":"",
-        "Name":"Calculate depth",
-        "Call":"angsd",
-        "Infiles":{ " ":"",
-            "bam/bamlist":"-bam",
-            "cram":"-bam",
-            "mpileup":"-pileup",
-            "vcf":"-vcf-gl",
-            "bcf":"-vcf-gl",
-            "glf.gz":"-glf",
-            "glf10_text":"-glf10_text",
-            "beagle":"-beagle"}
-    } 
-
+	"Method":{
+		"doDepth":{ "":"",
+			"Name":"Calculate depth",
+			"Run":"angsd",
+			"Call":"-doDepth",
+			"CallOpt":{
+				"1":{
+					"Input":{ " ":"",
+						"Opts":{
+							"Multiple bam/cram files":"-bam",
+							"Bam/cram file":"-i"
+						},
+						"Label":"Input file",
+						"PopTitle":"Choosing input file",
+						"PopExp":"exp"
+					},
+					"Must":"-doCounts 1",
+					"Optional":{
+						"maxDepth": {
+							"Label":"maxDepth",
+							"PopTitle":"Setting maxDepth",
+							"PopExp":"Binds the sites with more than <code>maxDepth</code> number of reads together. (Default=100)",
+							"Use":"-maxDepth"
+						},
+						"minQ": {
+							"Label":"minQ",
+							"PopTitle":"title",
+							"PopExp":"exp",
+							"Use":"-minQ"
+						},
+						"minQfile": {
+							"Label":"minQFile",
+							"PopTitle":"title",
+							"PopExp":"exp",
+							"Use":"-minQfile"
+						},
+						"OutDetails":"angsd -doDepth 1 generates two files: angsdput.depthGlobal and angsdput.depthSample.\n-> angsdput.depthGlobal contains the sequencing depth for all samples.\n-> angsdput.depthSample contains one line per individual. Each column represents a different depth starting from 0. e.g. Column 1 contains the number of sites that has sequencing depth of 0. Column 2 contains the number of sites that has sequencing depth of 1."
+					}
+				}
+			}
+		},
+		"doFasta":{"":"",
+			"Name":"Create a fasta file",
+			"Run":"angsd",
+			"Call":"-doFasta",
+			"CallOpt":{
+				"1":{
+					"Input":{ " ":"",
+						"Opts": {
+							"Bam file":"-i"
+						},
+						"Label":"Input file",
+						"PopTitle":"Choosing input file",
+						"PopExp":"exp"
+					},
+					"Must":"-doCounts 1",
+					"Optional":{"":"",
+						"seed": {
+							"Label":"Seed",
+							"PopTitle":"Setting seed",
+							"PopExp":"exp",
+							"Use":"-seed"
+						},
+						"explode": {
+							"Label":"Explode",
+							"PopTitle":"title",
+							"PopExp":"exp",
+							"Use":"-explode"
+						},
+						"basesPerLine": {
+							"Label":"basesPerLine",
+							"PopTitle":"title",
+							"PopExp":"exp",
+							"Use":"-basesPerLine"
+						},
+						"rmTrans": {
+							"Label":"Transition removal",
+							"PopTitle":"title",
+							"PopExp":"exp",
+							"Use":"-rmTrans",
+							"Must":"-ref"
+						},
+						"OutDetails":"angsd -doFasta 1 generates a gzipped fasta file, angsdput.fa.gz, which then can be extracted using <code>gunzip</code>" 
+					}
+				}
+			}
+		}
+	} 
 }
