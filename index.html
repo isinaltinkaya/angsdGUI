@@ -49,9 +49,10 @@
 					</label>
 					<select name="analysis" class="select form-control" id="analysis" required="required" onChange="getAnalysis();">
 						<option value=""> </option>
-						<option value="realSFS">Site frequency spectrum</option>
-						<option value="PopBranch">Population branch statistics</option>
+						<!--<option value="realSFS">Site frequency spectrum</option>-->
+						<!--<option value="PopBranch">Population branch statistics</option>-->
 						<option value="doDepth">Calculate depth</option>
+						<option value="doFasta">Create fasta file</option>
 					</select>
 				</div>
 				<div class="formItem">
@@ -61,12 +62,15 @@
 					</div>
 				</div>
 
+				<div class="formItem">
+
 					<!--<div class="formItem"><h> Your pipeline is ready!</h><br>You can download your pipeline or copy it to your clipboard.<br></div>-->
 					<!--<div class="formItem">-->
-					<!--<button type="button" onclick="Download()" class="DownloadButton" id="DownloadButton" data-toggle="tooltip" title="Download pipeline"><i class="fa fa-download"></i></button>-->
+					<button type="button" onclick="Download()" class="DownloadButton" id="DownloadButton" data-toggle="tooltip" title="Download pipeline"><i class="fa fa-download"></i></button>
 					<!--<div class="divider"></div>-->
-					<!--<button type="button" class="CopyButton" id="CopyButton" data-clipboard-action="copy" data-clipboard-target="#code" data-toggle="tooltip" title="Copy to clipboard"><i class="fa fa-clipboard" alt="Copied to clipboard"></i></button>-->
+					<button type="button" class="CopyButton" id="CopyButton" data-clipboard-action="copy" data-clipboard-target="#code" data-toggle="tooltip" title="Copy to clipboard"><i class="fa fa-clipboard" alt="Copied to clipboard"></i></button>
 					<!--</div>-->
+				</div>
 
 				</div>
 			</div>

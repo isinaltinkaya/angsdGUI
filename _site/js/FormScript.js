@@ -16,21 +16,9 @@ var Data;
 // define initial list of analyses
 var JobList = [];
 
-// read json file using jquery
-//var getJSON = $.ajax({
-	//url: './js/angsd.json',
-	//type: 'GET',
-	//dataType: 'json',
-	//dataContent: 'application/json',
-	//data: {get_param: 'value'},
-	//success: function (data) {
-		//Data = getJSON.responseJSON;
-	//}
-//});
-//this works
 jQuery.when(jQuery.getJSON('js/angsd.json')).done( function(json) {
 	console.log(json);
-	Data = json.responseJSON;
+	Data = json;
 });
 
 
@@ -43,6 +31,9 @@ var getPipelineName = function(){
     }
 }
 
+var getMethod = function(MethodName){
+	return Data["Method"][MethodName];
+}
 
 // enable new popovers
 var enableNewPops = function(){
@@ -153,21 +144,22 @@ var getAnalysis = function(){
     AnalysisName = Analysis.options[Analysis.selectedIndex].value;
 
     // remove previously generated substeps
-    //rmSubSteps();
+	//rmSubSteps();
 
     // clear list of functions
     JobList = [];
 
-    //console.log("here1")
-
-    //console.log(Analysis.options[Analysis.selectedIndex].value)
+	//console.log(Analysis.options[Analysis.selectedIndex].value)
 
     // if analysis selected
     if (Analysis.options[Analysis.selectedIndex].value) {
 
         //console.log("success")
 
-        var InfileTypes = Data[AnalysisName].Infiles;
+        //var InfileTypes = Data["Method"][AnalysisName].Infile;
+		var Method = getMethod(AnalysisName);
+		console.log("here");
+		console.log(Method);
 
         // create input file type select
         var InfileType = document.createElement('select');  
@@ -236,9 +228,6 @@ var rewriteCode = function(){
 $(document).ready(function(){
     // add initial step virtual buttons
 	rewriteCode();
-	//getAnalysis();
+	getAnalysis();
     getPipelineName();
-    console.log("here1")
-    console.log("Data")
-	//Data = getJSON.responseJSON;
 });
