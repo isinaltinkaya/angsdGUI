@@ -1,1 +1,1 @@
-angsdGUI is a web user interface for angsd.
+angsdGUI is an interactive web user interface for angsd.
